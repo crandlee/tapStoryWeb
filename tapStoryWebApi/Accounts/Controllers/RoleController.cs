@@ -1,13 +1,14 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web.ApplicationServices;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using NLog;
 using tapStoryWebApi.Accounts.Configuration;
+using tapStoryWebApi.Accounts.Services;
 using tapStoryWebApi.Accounts.ViewModels;
-using RoleService = tapStoryWebApi.Accounts.Services.RoleService;
 
 namespace tapStoryWebApi.Accounts.Controllers
 {
@@ -15,13 +16,8 @@ namespace tapStoryWebApi.Accounts.Controllers
     [RoutePrefix("api/Role")]
     public class RoleController : ApiController
     {
-
-        private const string LocalLoginProvider = "Local";
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private ApplicationUserManager _userManager;
-
-        public RoleController()
-        {
-        }
 
         public ApplicationUserManager UserManager
         {
@@ -49,17 +45,20 @@ namespace tapStoryWebApi.Accounts.Controllers
         [AcceptVerbs("POST")]
         public async Task<IHttpActionResult> AddRole(AddRoleBindingModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                var result = await RoleService.AddRoleToUser(Request.GetOwinContext().Get<ApplicationUserManager>(), model.UserId,
+                    model.RoleName);
+
+                return !result.Succeeded ? GetErrorResult(result) : Ok();
+            } 
+            catch (Exception e)
+            {
+                Logger.Error("AddRole(POST): Error thrown: {0}", e.ToString());
+                throw;
+
             }
 
-            var result = await RoleService.AddRoleToUser(Request.GetOwinContext().Get<ApplicationUserManager>(), model.UserId,
-                model.RoleName);
-
-            return !result.Succeeded ? GetErrorResult(result) : Ok();
-
-            return Ok();
         }
 
         #region Helpers

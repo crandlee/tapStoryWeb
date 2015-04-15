@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Results;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using NLog;
 using tapStoryWebApi.Accounts.Configuration;
 using tapStoryWebData.Identity.Models;
@@ -36,22 +33,41 @@ namespace tapStoryWebApi.Accounts.Services
                 return res;
             }
             catch (Exception e)
-            {                
+            {
                 Logger.Error("AddRole: Error thrown: {0}", e.ToString());
                 throw;
             }
         }
 
-        public static IdentityResult AddRoleToUser(ApplicationUserManager userManager,  ApplicationUser user, ApplicationRole role)
+        public static IdentityResult AddRoleToUser(ApplicationUserManager userManager, ApplicationUser user, ApplicationRole role)
         {
-            var rolesForUser = userManager.GetRoles(user.Id);
-            return !rolesForUser.Contains(role.Name) ? userManager.AddToRole(user.Id, role.Name) : null;
+            try
+            {
+                var rolesForUser = userManager.GetRoles(user.Id);
+                return !rolesForUser.Contains(role.Name) ? userManager.AddToRole(user.Id, role.Name) : null;
+            }
+            catch (Exception e)
+            {
+                Logger.Error("AddRoleToUser: Error thrown: {0}", e.ToString());
+                throw;
+            }
+
         }
 
         public async static Task<IdentityResult> AddRoleToUser(ApplicationUserManager userManager, int userId, string role)
         {
-            var rolesForUser = await userManager.GetRolesAsync(userId);            
-            return await (!rolesForUser.Contains(role) ? userManager.AddToRoleAsync(userId, role) : Task.FromResult<IdentityResult>(null));            
+            try
+            {
+                var rolesForUser = await userManager.GetRolesAsync(userId);
+                return await (!rolesForUser.Contains(role) ? userManager.AddToRoleAsync(userId, role) : Task.FromResult<IdentityResult>(null));
+
+            }
+            catch (Exception e)
+            {
+                Logger.Error("AddRoleToUser: Error thrown: {0}", e.ToString());
+                throw;
+            }
+
 
         }
 

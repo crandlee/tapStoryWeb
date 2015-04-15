@@ -1,5 +1,5 @@
 using System.Data.Entity.Migrations;
-using tapStoryWebData.Identity.EF;
+using tapStoryWebData.Identity.Contexts;
 
 namespace tapStoryWebData.Migrations
 {

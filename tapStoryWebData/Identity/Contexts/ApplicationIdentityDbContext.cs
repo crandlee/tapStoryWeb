@@ -2,7 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using tapStoryWebData.Identity.Models;
 
-namespace tapStoryWebData.Identity.EF
+namespace tapStoryWebData.Identity.Contexts
 {
     public class ApplicationIdentityDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {

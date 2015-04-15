@@ -7,7 +7,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using tapStoryWebApi.Accounts.Configuration;
 using tapStoryWebApi.Accounts.Providers;
-using tapStoryWebData.Identity.EF;
+using tapStoryWebData.Identity.Contexts;
 using tapStoryWebData.Identity.Models;
 
 namespace tapStoryWebApi.Accounts.Services
@@ -28,18 +28,19 @@ namespace tapStoryWebApi.Accounts.Services
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
-                Provider = new CookieAuthenticationProvider 
-                {
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser, int>(
-                        validateInterval: TimeSpan.FromMinutes(30), 
-                        regenerateIdentityCallback: (manager, user) => (user.GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie)),
-                        getUserIdCallback: id => (id.GetUserId<int>()))
-                }
-            });
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //{
+            //    AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+            //    LoginPath = new PathString("/Account/Login"),
+            //    Provider = new CookieAuthenticationProvider 
+            //    {
+            //        OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser, int>(
+            //            validateInterval: TimeSpan.FromMinutes(30), 
+            //            regenerateIdentityCallback: (manager, user) => (user.GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie)),
+            //            getUserIdCallback: id => (id.GetUserId<int>()))
+            //    }
+            //});
+            app.UseCookieAuthentication(new CookieAuthenticationOptions());
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 

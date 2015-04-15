@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using NLog;
-using tapStoryWebData.Identity.EF;
+using tapStoryWebData.Identity.Contexts;
 using tapStoryWebData.Identity.Models;
 
 namespace tapStoryWebApi.Accounts.Configuration

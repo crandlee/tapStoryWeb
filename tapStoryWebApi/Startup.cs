@@ -2,6 +2,7 @@
 using Owin;
 using tapStoryWebApi;
 using tapStoryWebApi.Accounts.Services;
+using tapStoryWebApi.Attributes;
 using tapStoryWebApi.Middleware;
 using tapStoryWebApi.Routing;
 
@@ -15,6 +16,9 @@ namespace tapStoryWebApi
 
             //Routing
             var configuration = RouteConfig.ConfigureRoutes();
+
+            //Global Filters
+            configuration.Filters.Add(new ValidateViewModelAttribute());
 
             //Initialize Authorization Server
             AuthorizationService.ConfigureAuthorization(app);
