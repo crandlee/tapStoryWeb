@@ -24,9 +24,12 @@ namespace tapStoryWebData.Identity.Contexts
                 .HasRequired(ur => ur.Role)
                 .WithMany()
                 .HasForeignKey(ur => ur.RoleId);
+
+            modelBuilder.Entity<UserRelationship>().HasRequired(i => i.PrimaryMember).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<UserRelationship>().HasRequired(i => i.SecondaryMember).WithMany().WillCascadeOnDelete(false);
         }
 
-        public bool SeedCalled { get; set; }
+        public DbSet<UserRelationship> UserRelationships { get; set; }
     }
 
 }

@@ -12,7 +12,7 @@ namespace tapStoryWebData.Migrations
 
         protected override void Seed(ApplicationIdentityDbContext context)
         {
-            context.SeedCalled = true;
+            
         }
 
     }

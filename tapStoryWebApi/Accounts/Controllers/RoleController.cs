@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using NLog;
 using tapStoryWebApi.Accounts.Configuration;
 using tapStoryWebApi.Accounts.Services;
 using tapStoryWebApi.Accounts.ViewModels;
+using tapStoryWebApi.Attributes;
 
 namespace tapStoryWebApi.Accounts.Controllers
 {
@@ -17,40 +17,18 @@ namespace tapStoryWebApi.Accounts.Controllers
     public class RoleController : ApiController
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private ApplicationUserManager _userManager;
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return Request.GetOwinContext().Get<ApplicationRoleManager>();
-            }
-        }
-
-        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // POST api/Role/
         [AcceptVerbs("POST")]
+        [IsAdmin]
         public async Task<IHttpActionResult> AddRole(AddRoleBindingModel model)
         {
             try
             {
-                var result = await RoleService.AddRoleToUser(Request.GetOwinContext().Get<ApplicationUserManager>(), model.UserId,
+                var result = await RoleService.AddRoleToUserAsync(Request.GetOwinContext().Get<ApplicationUserManager>(), model.UserId,
                     model.RoleName);
 
-                return !result.Succeeded ? GetErrorResult(result) : Ok();
+                return (result != null && !result.Succeeded) ? GetErrorResult(result) : Ok();
             } 
             catch (Exception e)
             {
@@ -60,6 +38,28 @@ namespace tapStoryWebApi.Accounts.Controllers
             }
 
         }
+
+        // POST api/Role/
+        [AcceptVerbs("DELETE")]
+        [IsAdmin]
+        public async Task<IHttpActionResult> RemoveRole(AddRoleBindingModel model)
+        {
+            try
+            {
+                var result = await RoleService.RemoveRoleFromUserAsync(Request.GetOwinContext().Get<ApplicationUserManager>(), model.UserId,
+                    model.RoleName);
+
+                return (result != null && !result.Succeeded) ? GetErrorResult(result) : Ok();
+            }
+            catch (Exception e)
+            {
+                Logger.Error("RemoveRole(POST): Error thrown: {0}", e.ToString());
+                throw;
+
+            }
+
+        }
+
 
         #region Helpers
         private IHttpActionResult GetErrorResult(IdentityResult result)

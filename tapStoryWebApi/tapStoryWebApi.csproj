@@ -41,6 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataAnnotationsExtensions">
+      <HintPath>..\packages\DataAnnotationsExtensions.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -60,6 +63,12 @@
       <HintPath>..\packages\Microsoft.AspNet.Loader.IIS.1.0.0-alpha1\lib\net45\Microsoft.AspNet.Loader.IIS.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.OData.Core">
+      <HintPath>..\packages\Microsoft.OData.Core.6.10.0\lib\portable-net40+sl5+wp8+win8+wpa\Microsoft.OData.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.OData.Edm">
+      <HintPath>..\packages\Microsoft.OData.Edm.6.10.0\lib\portable-net40+sl5+wp8+win8+wpa\Microsoft.OData.Edm.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -81,6 +90,9 @@
     </Reference>
     <Reference Include="Microsoft.Owin.Security.OAuth">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Spatial">
+      <HintPath>..\packages\Microsoft.Spatial.6.10.0\lib\portable-net40+sl5+wp8+win8+wpa\Microsoft.Spatial.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -136,6 +148,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.OData, Version=5.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.OData.5.5.1\lib\net45\System.Web.OData.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
@@ -185,29 +201,35 @@
     <Compile Include="Accounts\Configuration\ApplicationUserManager.cs" />
     <Compile Include="Accounts\Controllers\AccountController.cs" />
     <Compile Include="Accounts\Controllers\RoleController.cs" />
+    <Compile Include="Accounts\Controllers\RolesController.cs" />
     <Compile Include="Accounts\Controllers\SampleController.cs" />
+    <Compile Include="Accounts\Controllers\UsersController.cs" />
     <Compile Include="Accounts\Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Accounts\Results\ChallengeResult.cs" />
     <Compile Include="Accounts\Services\RoleService.cs" />
     <Compile Include="Accounts\Services\UserService.cs" />
     <Compile Include="Accounts\ViewModels\AddExternalLoginBindingModel.cs" />
     <Compile Include="Accounts\ViewModels\AddRoleBindingModel.cs" />
+    <Compile Include="Accounts\ViewModels\ApplicationUserViewModel.cs" />
     <Compile Include="Accounts\ViewModels\ChangePasswordBindingModel.cs" />
     <Compile Include="Accounts\ViewModels\ExternalLoginViewModel.cs" />
     <Compile Include="Accounts\ViewModels\ManageInfoViewModel.cs" />
     <Compile Include="Accounts\ViewModels\RegisterBindingModel.cs" />
     <Compile Include="Accounts\ViewModels\RegisterExternalBindingModel.cs" />
     <Compile Include="Accounts\ViewModels\RemoveLoginBindingModel.cs" />
+    <Compile Include="Accounts\ViewModels\RemoveRoleBindingModel.cs" />
     <Compile Include="Accounts\ViewModels\SetPasswordBindingModel.cs" />
     <Compile Include="Accounts\ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Accounts\ViewModels\UserLoginInfoViewModel.cs" />
     <Compile Include="Accounts\Services\AuthorizationService.cs" />
+    <Compile Include="Attributes\IsAdminAttribute.cs" />
+    <Compile Include="Attributes\IsSuperAdminAttribute.cs" />
     <Compile Include="Attributes\ValidateViewModelAttribute.cs" />
     <Compile Include="Middleware\AuthorizationInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relationships\ViewModels\UserRelationshipViewModel.cs" />
     <Compile Include="Routing\RouteConfig.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="WebApiConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tapStoryWebData\tapStoryWebData.csproj">
@@ -215,6 +237,7 @@
       <Name>tapStoryWebData</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

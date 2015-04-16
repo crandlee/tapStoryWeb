@@ -3,7 +3,7 @@ using DataAnnotationsExtensions;
 
 namespace tapStoryWebApi.Accounts.ViewModels
 {
-    public class AddRoleBindingModel
+    public class RemoveRoleBindingModel
     {
         [Required]
         [Integer]

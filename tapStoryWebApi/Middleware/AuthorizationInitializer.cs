@@ -8,6 +8,7 @@ using NLog;
 using tapStoryWebApi.Accounts.Configuration;
 using tapStoryWebApi.Accounts.Services;
 using tapStoryWebData.Identity.Contexts;
+using tapStoryWebData.Identity.Models;
 
 namespace tapStoryWebApi.Middleware
 {
@@ -47,7 +48,7 @@ namespace tapStoryWebApi.Middleware
 
         }
 
-        public static void InitializeUserManagement(IOwinContext context)
+        public async static void InitializeUserManagement(IOwinContext context)
         {
             var userManager = context.GetUserManager<ApplicationUserManager>();
             var roleManager = context.Get<ApplicationRoleManager>();
@@ -55,7 +56,7 @@ namespace tapStoryWebApi.Middleware
             var roles = new[] { "user", "admin", "superadmin" };
             foreach (var roleName in roles)
             {
-                var roleResult = RoleService.AddRole(roleManager, roleName);
+                var roleResult = await RoleService.AddRole(roleManager, roleName);
                 if (roleResult == null)
                 {
                     Logger.Trace("InitializeUserManagement: Role {0} currently exists. Will not add.", roleName);
@@ -70,7 +71,7 @@ namespace tapStoryWebApi.Middleware
             }
 
             const string userName = "Admin";
-            var userResult = UserService.AddUser(userManager, userName, "admin@tapStory.com", "rE4$g*1W#*iuo");
+            var userResult = UserService.AddUser(userManager, userName, "admin@tapStory.com", "tapStory", "Admin", "rE4$g*1W#*iuo");
             if (userResult == null)
             {
                 Logger.Trace("InitializeUserManagement: User {0} currently exists. Will not add.", userName);
@@ -84,9 +85,19 @@ namespace tapStoryWebApi.Middleware
 
             }
 
-            var roleUserRes = RoleService.AddRoleToUser(userManager, UserService.GetUserByName(userManager, userName), RoleService.GetRoleByName(roleManager, "admin"));
-            if (roleUserRes == IdentityResult.Success)
+            var roleUserRes = await RoleService.AddRoleToUser(userManager, UserService.GetUserByName(userManager, userName), RoleService.GetRoleByName(roleManager, Roles.Admin.ToString()));
+            if (roleUserRes == IdentityResult.Success) {
                 Logger.Trace("InitializeUserManagement: Added admin role to {0}.", userName);
+                roleUserRes = await RoleService.AddRoleToUser(userManager, UserService.GetUserByName(userManager, userName), RoleService.GetRoleByName(roleManager, Roles.User.ToString()));
+                if (roleUserRes == IdentityResult.Success)
+                {
+                    Logger.Trace("InitializeUserManagement: Added user role to {0}.", userName);
+                }
+                else
+                {
+                    Logger.Error("InitializeUserManagement: Could not add user role to user {0}", userName);
+                }
+            }
             else
                 Logger.Error("InitializeUserManagement: Could not add admin role to user {0}", userName);
 

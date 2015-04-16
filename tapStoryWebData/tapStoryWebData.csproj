@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataAnnotationsExtensions">
+      <HintPath>..\packages\DataAnnotationsExtensions.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -67,6 +70,9 @@
     <Compile Include="Identity\Models\ApplicationUserLogin.cs" />
     <Compile Include="Identity\Models\ApplicationUserRole.cs" />
     <Compile Include="Identity\Models\ApplicationUserStore.cs" />
+    <Compile Include="Identity\Models\RelationshipType.cs" />
+    <Compile Include="Identity\Models\RoleEnum.cs" />
+    <Compile Include="Identity\Models\UserRelationship.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
