@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -18,8 +17,11 @@ namespace tapStoryWebData.Identity.Models
         [StringLength(256), Required]
         public string LastName { get; set; }
 
-        
-        public virtual IEnumerable<ApplicationUser> RelationshipUsers { get; set; }
+        [ForeignKey("SecondaryMemberId")]
+        public ICollection<UserRelationship> SecondaryRelationships { get; set; }
+
+        [ForeignKey("PrimaryMemberId")]
+        public ICollection<UserRelationship> PrimaryRelationships { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser, int> manager, string authenticationType)
         {

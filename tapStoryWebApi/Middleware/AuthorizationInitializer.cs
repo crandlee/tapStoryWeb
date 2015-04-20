@@ -26,7 +26,7 @@ namespace tapStoryWebApi.Middleware
         {
             try
             {
-                var identityDbContext = context.Get<ApplicationIdentityDbContext>();
+                var identityDbContext = context.Get<ApplicationDbContext>();
 
                 if (identityDbContext != null && identityDbContext.Users.FirstOrDefault() == null)
                 {

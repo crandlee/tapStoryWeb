@@ -203,10 +203,14 @@
     <Compile Include="Accounts\Controllers\RoleController.cs" />
     <Compile Include="Accounts\Controllers\RolesController.cs" />
     <Compile Include="Accounts\Controllers\SampleController.cs" />
+    <Compile Include="Relationships\Controllers\UserRelationshipsController.cs" />
+    <Compile Include="Accounts\Controllers\UserRolesController.cs" />
     <Compile Include="Accounts\Controllers\UsersController.cs" />
     <Compile Include="Accounts\Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Accounts\Results\ChallengeResult.cs" />
     <Compile Include="Accounts\Services\RoleService.cs" />
+    <Compile Include="Relationships\Services\UserRelationshipService.cs" />
+    <Compile Include="Accounts\Services\UserRoleService.cs" />
     <Compile Include="Accounts\Services\UserService.cs" />
     <Compile Include="Accounts\ViewModels\AddExternalLoginBindingModel.cs" />
     <Compile Include="Accounts\ViewModels\AddRoleBindingModel.cs" />
@@ -226,6 +230,7 @@
     <Compile Include="Attributes\IsSuperAdminAttribute.cs" />
     <Compile Include="Attributes\ValidateViewModelAttribute.cs" />
     <Compile Include="Middleware\AuthorizationInitializer.cs" />
+    <Compile Include="ODataConfiguration\ODataEdm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relationships\ViewModels\UserRelationshipViewModel.cs" />
     <Compile Include="Routing\RouteConfig.cs" />

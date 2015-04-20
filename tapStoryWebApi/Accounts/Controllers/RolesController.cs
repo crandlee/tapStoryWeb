@@ -1,42 +1,41 @@
-﻿using System;
+﻿using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.OData;
+using System.Web.OData.Routing;
 using Microsoft.AspNet.Identity.Owin;
-using NLog;
-using tapStoryWebApi.Accounts.Configuration;
 using tapStoryWebApi.Accounts.Services;
-using tapStoryWebApi.Attributes;
+using tapStoryWebData.Identity.Contexts;
+using tapStoryWebData.Identity.Models;
 
 namespace tapStoryWebApi.Accounts.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/Roles")]
-    public class RolesController : ApiController
+    public class RolesController : ODataController
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        // GET api/Roles/
-        [AcceptVerbs("GET")]
-        [IsAdmin]
-        public async Task<IHttpActionResult> GetRoles(int userId)
+        private ApplicationDbContext GetDbContext()
         {
-            try
-            {
-                var userManager = Request.GetOwinContext().Get<ApplicationUserManager>();
-                var roles =
-                    await RoleService.GetRolesAsync(userManager, userId);
-                return Ok(new { Roles = roles });
-
-            }
-            catch (Exception e)
-            {
-                Logger.Error("GetRoles(GET): Error thrown: {0}", e.ToString());
-                throw;
-
-            }
-
+            return Request.GetOwinContext().Get<ApplicationDbContext>();
         }
 
+        [EnableQuery]
+        public IQueryable<ApplicationRole> Get()
+        {
+            return RoleService.GetRoles(GetDbContext());
+        }
+
+        [EnableQuery]
+        public SingleResult<ApplicationRole> Get([FromODataUri] int key)
+        {
+            return SingleResult.Create(RoleService.GetRole(GetDbContext(), key));
+        }
+
+        [EnableQuery]
+        public IQueryable<ApplicationUserRole> GetUsers([FromODataUri] int key)
+        {
+            var ur = RoleService.GetUserRolesForRole(GetDbContext(), key);
+            return ur;
+        }
     }
 }

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net.Configuration;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
-using NLog;
 using tapStoryWebApi.Accounts.Configuration;
+using tapStoryWebData.Identity.Contexts;
 using tapStoryWebData.Identity.Models;
 
 namespace tapStoryWebApi.Accounts.Services
@@ -19,6 +15,10 @@ namespace tapStoryWebApi.Accounts.Services
             return roleManager.FindByName(roleName);
         }
 
+        public static IQueryable<ApplicationUserRole> GetUserRolesForRole(ApplicationDbContext ctx, int id)
+        {
+            return ctx.Roles.Where(u => u.Id == id).SelectMany(s => s.Users);
+        }
 
         public async static Task<IdentityResult> AddRole(ApplicationRoleManager roleManager, string roleName, string description = null)
         {
@@ -51,10 +51,10 @@ namespace tapStoryWebApi.Accounts.Services
 
         }
 
-        public async static Task<IEnumerable<string>> GetRolesAsync(ApplicationUserManager userManager, int userId)
-        {
-            return await userManager.GetRolesAsync(userId);
-        }
+        //public async static Task<IEnumerable<string>> GetRolesAsync(ApplicationUserManager userManager, int userId)
+        //{
+        //    return await userManager.GetRolesAsync(userId);
+        //}
 
         public async static Task<bool> UserHasRoleAsync(ApplicationUserManager userManager, int userId, string role)
         {
@@ -78,6 +78,16 @@ namespace tapStoryWebApi.Accounts.Services
         {
             var countRolesMatched = sourceRoles.Sum(role => (sourceRoles.Contains(role)) ? 1 : 0);
             return countRolesMatched > 0 && countRolesMatched == testRoles.Count;            
+        }
+
+        public static IQueryable<ApplicationRole> GetRole(ApplicationDbContext ctx, int id)
+        {
+            return ctx.Roles.Where(r => r.Id == id);
+        }
+
+        public static IQueryable<ApplicationRole> GetRoles(ApplicationDbContext ctx)
+        {
+            return ctx.Roles;
         }
     }
 }

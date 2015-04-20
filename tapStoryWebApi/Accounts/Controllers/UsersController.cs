@@ -5,8 +5,8 @@ using System.Web.OData;
 using Microsoft.AspNet.Identity.Owin;
 using NLog;
 using tapStoryWebApi.Accounts.Services;
-using tapStoryWebApi.Accounts.ViewModels;
 using tapStoryWebData.Identity.Contexts;
+using tapStoryWebData.Identity.Models;
 
 namespace tapStoryWebApi.Accounts.Controllers
 {
@@ -14,21 +14,42 @@ namespace tapStoryWebApi.Accounts.Controllers
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        private ApplicationIdentityDbContext GetDbContext()
+        private ApplicationDbContext GetDbContext()
         {
-            return Request.GetOwinContext().Get<ApplicationIdentityDbContext>();
+            return Request.GetOwinContext().Get<ApplicationDbContext>();
         }
 
-        [EnableQuery]
-        public IQueryable<ApplicationUserViewModel> GetUsers()
+        [EnableQuery]        
+        public IQueryable<ApplicationUser> Get()
         {
             return UserService.GetUsers(GetDbContext());
         }
 
         [EnableQuery]
-        public SingleResult<ApplicationUserViewModel> GetUser([FromODataUri] int key)
+        public SingleResult<ApplicationUser> Get([FromODataUri] int key)
         {
             return SingleResult.Create(UserService.GetUser(GetDbContext(), key));
         }
+
+        [EnableQuery]
+        public IQueryable<ApplicationUserRole> GetRoles([FromODataUri] int key)
+        {
+            return UserService.GetUserRolesForUser(GetDbContext(), key);
+        }
+
+        [EnableQuery]
+        public IQueryable<UserRelationship> GetPrimaryRelationships([FromODataUri] int key)
+        {
+            var ur  = UserService.GetPrimaryRelationshipsForUser(GetDbContext(), key);
+            return ur;
+        }
+
+        [EnableQuery]
+        public IQueryable<UserRelationship> GetSecondaryRelationships([FromODataUri] int key)
+        {
+            var ur = UserService.GetSecondaryRelationshipsForUser(GetDbContext(), key);
+            return ur;
+        }
+
     }
 }

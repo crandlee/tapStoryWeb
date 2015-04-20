@@ -13,7 +13,7 @@ namespace tapStoryWebData.Identity.Models
         public ApplicationRole(string name, string description)
         {
             Name = name;
-            Description = description;
+            Description = description;            
         }
 
 

@@ -24,7 +24,7 @@ namespace tapStoryWebApi.Accounts.Configuration
             IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
             return new ApplicationRoleManager(
-                new ApplicationRoleStore(context.Get<ApplicationIdentityDbContext>()));
+                new ApplicationRoleStore(context.Get<ApplicationDbContext>()));
         }
     }
 

@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using Microsoft.AspNet.Identity;
 using NLog;
 using tapStoryWebApi.Accounts.Configuration;
-using tapStoryWebApi.Accounts.ViewModels;
-using tapStoryWebApi.Relationships.ViewModels;
 using tapStoryWebData.Identity.Contexts;
 using tapStoryWebData.Identity.Models;
 
@@ -19,44 +18,31 @@ namespace tapStoryWebApi.Accounts.Services
             return userManager.FindByName(userName);
         }
 
-        public static IQueryable<ApplicationUserViewModel> GetUser(ApplicationIdentityDbContext ctx, int id)
+        public static IQueryable<ApplicationUser> GetUser(ApplicationDbContext ctx, int id)
         {
-            return ctx.Users.Where(u => u.Id == id).Select(u => new ApplicationUserViewModel
-            {
-                Id = u.Id,
-                EMail = u.Email,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                UserName = u.UserName,
-                UserRelationships = ctx.UserRelationships.Where(ur => ur.PrimaryMemberId == u.Id).Select(ur => new UserRelationshipViewModel() { Id = ur.Id, RelationshipType = ur.RelationshipType, RelationshipWith = ur.SecondaryMember })
-            });
+            return ctx.Users.Where(u => u.Id == id);
         }
 
-        public static IQueryable<ApplicationUserViewModel> GetUsers(ApplicationIdentityDbContext ctx)
+        public static IQueryable<ApplicationUser> GetUsers(ApplicationDbContext ctx)
         {
-            return ctx.Users.Select(u => new ApplicationUserViewModel
-            {
-                Id = u.Id,
-                EMail = u.Email,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                UserName = u.UserName,
-                UserRelationships = ctx.UserRelationships.Where(ur => ur.PrimaryMemberId == u.Id).Select(ur => new UserRelationshipViewModel() { Id = ur.Id, RelationshipType = ur.RelationshipType, RelationshipWith = ur.SecondaryMember })
-            });
+            return ctx.Users;
         }
 
-        private static ApplicationUserViewModel GetApplicationUserViewModel(ApplicationIdentityDbContext ctx, ApplicationUser u)
+        public static IQueryable<ApplicationUserRole> GetUserRolesForUser(ApplicationDbContext ctx, int id)
         {
-             return new ApplicationUserViewModel
-            {
-                Id = u.Id,
-                EMail = u.Email,
-                FirstName = u.FirstName,
-                LastName = u.LastName,
-                UserName = u.UserName,
-                UserRelationships = ctx.UserRelationships.Where(ur => ur.PrimaryMemberId == u.Id).Select(ur => new UserRelationshipViewModel() { Id = ur.Id, RelationshipType = ur.RelationshipType, RelationshipWith = ur.SecondaryMember })
-            };
-            
+            return ctx.Users.Where(u => u.Id == id).SelectMany(s => s.Roles);
+        }
+
+        public static IQueryable<UserRelationship> GetPrimaryRelationshipsForUser(ApplicationDbContext ctx, int id)
+        {
+            var usr = ctx.Users.Where(u => u.Id == id).Include("PrimaryRelationships");
+            return usr.SelectMany(s => s.PrimaryRelationships);
+        }
+
+        public static IQueryable<UserRelationship> GetSecondaryRelationshipsForUser(ApplicationDbContext ctx, int id)
+        {
+            var usr = ctx.Users.Where(u => u.Id == id).Include("SecondaryRelationships");
+            return usr.SelectMany(s => s.SecondaryRelationships);
         }
 
         public static IdentityResult AddUser(ApplicationUserManager userManager, string userName, string email, string firstName, string lastName, string password, bool enableLockout = true)

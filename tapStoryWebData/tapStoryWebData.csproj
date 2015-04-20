@@ -62,7 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Identity\Contexts\ApplicationIdentityDbContext.cs" />
+    <Compile Include="Identity\Contexts\ApplicationDbContext.cs" />
     <Compile Include="Identity\Models\ApplicationRole.cs" />
     <Compile Include="Identity\Models\ApplicationRoleStore.cs" />
     <Compile Include="Identity\Models\ApplicationUser.cs" />
