@@ -30,7 +30,16 @@ namespace tapStoryWebApi.Accounts.Services
 
         public static IQueryable<ApplicationUserRole> GetUserRolesForUser(ApplicationDbContext ctx, int id)
         {
-            return ctx.Users.Where(u => u.Id == id).SelectMany(s => s.Roles);
+            var roleManager = new ApplicationRoleManager(new ApplicationRoleStore(ctx));
+            var user = ctx.Users.Include(u => u.Roles).FirstOrDefault(u => u.Id == id);
+            if (user == null) return new ApplicationUserRole[] {}.AsQueryable();
+            return user.Roles.Select(r =>
+            {
+                var role = roleManager.FindById(r.RoleId);
+                if (role != null) r.RoleName = role.Name;
+                r.UserName = user.UserName;
+                return r;
+            }).AsQueryable();
         }
 
         public static IQueryable<UserRelationship> GetPrimaryRelationshipsForUser(ApplicationDbContext ctx, int id)
@@ -58,8 +67,8 @@ namespace tapStoryWebApi.Accounts.Services
                 var res = userManager.Create(newUser, password);
                 if (res != IdentityResult.Success) return res;
                 Logger.Trace("AddUser: Added user with userName {0} and email {1}", userName, email);
-                var lockoutResult = userManager.SetLockoutEnabled(newUser.Id, enableLockout);
-                if (lockoutResult != IdentityResult.Success) Logger.Error("AddUser: Could not set lockout result for user {0}", userName);
+                //var lockoutResult = userManager.SetLockoutEnabled(newUser.Id, enableLockout);
+                //if (lockoutResult != IdentityResult.Success) Logger.Error("AddUser: Could not set lockout result for user {0}", userName);
                 Logger.Trace("AddUser: Set lockout {0} for user {1}", enableLockout, userName);
                 return res;
             }

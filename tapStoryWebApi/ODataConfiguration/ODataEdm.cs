@@ -1,4 +1,5 @@
 ﻿using System.Web.OData.Builder;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.OData.Edm;
 using tapStoryWebData.Identity.Models;
 
@@ -11,14 +12,21 @@ namespace tapStoryWebApi.ODataConfiguration
 
             ODataModelBuilder builder = new ODataConventionModelBuilder();
             builder = AddApplicationUserConfiguration(builder);
-            builder = AddApplicationRoleConfiguration(builder);
             builder = AddUserRelationshipConfiguration(builder);
+            builder = AddFileConfiguration(builder);
             return builder.GetEdmModel();
 
         }
 
+        private static ODataModelBuilder AddFileConfiguration(ODataModelBuilder builder)
+        {
+            builder.EntitySet<FileGroup>("FileGroups");
+            return builder;
+        }
+
         private static ODataModelBuilder AddApplicationUserConfiguration(ODataModelBuilder builder)
         {
+
             var ent = builder.EntitySet<ApplicationUser>("Users");
             ent.EntityType.Ignore(e => e.EmailConfirmed);
             ent.EntityType.Ignore(e => e.PasswordHash);
@@ -30,15 +38,9 @@ namespace tapStoryWebApi.ODataConfiguration
             ent.EntityType.Ignore(e => e.LockoutEnabled);
             ent.EntityType.Ignore(e => e.AccessFailedCount);
             ent.EntityType.Ignore(e => e.Logins);
-
-            return builder;
-        }
-
-        private static ODataModelBuilder AddApplicationRoleConfiguration(ODataModelBuilder builder)
-        {
-            builder.EntitySet<ApplicationRole>("Roles");
-            var ur = builder.EntitySet<ApplicationUserRole>("UserRoles");
-            ur.EntityType.HasKey(urole => new { urole.RoleId, urole.UserId });
+            builder.EntitySet<ApplicationUserClaim>("Claims");
+            builder.EntityType<IdentityUserRole<int>>().HasKey(urole => new { urole.RoleId, urole.UserId });
+            builder.EntitySet<ApplicationUserRole>("Roles");
             return builder;
         }
 

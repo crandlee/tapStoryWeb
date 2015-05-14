@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System.Data.Entity.Core.Objects;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.OData;
+using System.Web.OData.Query;
 using Microsoft.AspNet.Identity.Owin;
 using NLog;
 using tapStoryWebApi.Accounts.Services;
+using tapStoryWebApi.Extensions;
 using tapStoryWebData.Identity.Contexts;
 using tapStoryWebData.Identity.Models;
 
@@ -19,36 +22,41 @@ namespace tapStoryWebApi.Accounts.Controllers
             return Request.GetOwinContext().Get<ApplicationDbContext>();
         }
 
-        [EnableQuery]        
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IQueryable<ApplicationUser> Get()
         {
             return UserService.GetUsers(GetDbContext());
         }
 
-        [EnableQuery]
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public SingleResult<ApplicationUser> Get([FromODataUri] int key)
         {
             return SingleResult.Create(UserService.GetUser(GetDbContext(), key));
         }
 
-        [EnableQuery]
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IQueryable<ApplicationUserRole> GetRoles([FromODataUri] int key)
         {
             return UserService.GetUserRolesForUser(GetDbContext(), key);
         }
 
-        [EnableQuery]
-        public IQueryable<UserRelationship> GetPrimaryRelationships([FromODataUri] int key)
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
+        public IQueryable<ApplicationUserClaim> GetClaims([FromODataUri] int key)
         {
-            var ur  = UserService.GetPrimaryRelationshipsForUser(GetDbContext(), key);
-            return ur;
+            var x = GetDbContext().Users.Where(u => u.Id == key).SelectMany(s => s.Claims);
+            return x;
         }
 
-        [EnableQuery]
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
+        public IQueryable<UserRelationship> GetPrimaryRelationships([FromODataUri] int key)
+        {
+            return UserService.GetPrimaryRelationshipsForUser(GetDbContext(), key);
+        }
+
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IQueryable<UserRelationship> GetSecondaryRelationships([FromODataUri] int key)
         {
-            var ur = UserService.GetSecondaryRelationshipsForUser(GetDbContext(), key);
-            return ur;
+            return UserService.GetSecondaryRelationshipsForUser(GetDbContext(), key);
         }
 
     }

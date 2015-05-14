@@ -10,7 +10,6 @@ using tapStoryWebData.Identity.Models;
 
 namespace tapStoryWebApi.Accounts.Controllers
 {
-    [Authorize]
     public class RolesController : ODataController
     {
 
@@ -25,11 +24,11 @@ namespace tapStoryWebApi.Accounts.Controllers
             return RoleService.GetRoles(GetDbContext());
         }
 
-        [EnableQuery]
-        public SingleResult<ApplicationRole> Get([FromODataUri] int key)
-        {
-            return SingleResult.Create(RoleService.GetRole(GetDbContext(), key));
-        }
+        //[EnableQuery]
+        //public SingleResult<ApplicationRole> Get([FromODataUri] int roleId, [FromODataUri] int userId)
+        //{
+        //    return SingleResult.Create(new ApplicationRole());
+        //}
 
         [EnableQuery]
         public IQueryable<ApplicationUserRole> GetUsers([FromODataUri] int key)
@@ -37,5 +36,12 @@ namespace tapStoryWebApi.Accounts.Controllers
             var ur = RoleService.GetUserRolesForRole(GetDbContext(), key);
             return ur;
         }
+
+        [AcceptVerbs("POST")]
+        public IHttpActionResult Post(ApplicationUserRole userRole)
+        {
+            return Created("OK");
+        }
+
     }
 }

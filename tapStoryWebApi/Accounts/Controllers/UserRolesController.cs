@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Net.Http;
+using System.Web.Http;
 using System.Web.OData;
 using Microsoft.AspNet.Identity.Owin;
-using tapStoryWebApi.Accounts.Services;
 using tapStoryWebData.Identity.Contexts;
 using tapStoryWebData.Identity.Models;
 
@@ -16,17 +16,10 @@ namespace tapStoryWebApi.Accounts.Controllers
         }
 
         [EnableQuery]
-        public IQueryable<ApplicationUserRole> GetUserRoles([FromODataUri] int key)
+        public IQueryable<ApplicationUserRole> Get()
         {
-            return UserRoleService.GetRoles(GetDbContext(), key);
+            return GetDbContext().Users.Where(u => u.Id == 1).SelectMany(u => u.Roles);
         }
-
-        //[EnableQuery]
-        //public SingleResult<ApplicationUserRole> GetUserRole([FromODataUri] int key)
-        //{
-        //    //return SingleResult.Create(RoleService.GetRole(GetDbContext(), key));
-        //    return null;
-        //}
 
     }
 }

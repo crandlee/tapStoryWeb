@@ -203,6 +203,12 @@
     <Compile Include="Accounts\Controllers\RoleController.cs" />
     <Compile Include="Accounts\Controllers\RolesController.cs" />
     <Compile Include="Accounts\Controllers\SampleController.cs" />
+    <Compile Include="Common\Factories\ServiceFactory.cs" />
+    <Compile Include="Common\Services\AuditService.cs" />
+    <Compile Include="Exceptions\DataNotFoundException.cs" />
+    <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Files\Controllers\FileGroupsController.cs" />
+    <Compile Include="Files\Services\FileService.cs" />
     <Compile Include="Relationships\Controllers\UserRelationshipsController.cs" />
     <Compile Include="Accounts\Controllers\UserRolesController.cs" />
     <Compile Include="Accounts\Controllers\UsersController.cs" />
