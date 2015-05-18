@@ -3,8 +3,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using NLog;
-using tapStoryWebData.Identity.Contexts;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebData.EF.Contexts;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Accounts.Configuration
 {

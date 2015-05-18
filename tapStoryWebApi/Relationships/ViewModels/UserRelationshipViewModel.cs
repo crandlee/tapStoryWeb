@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Relationships.ViewModels
 {

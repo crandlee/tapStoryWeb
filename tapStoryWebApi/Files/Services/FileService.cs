@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using tapStoryWebApi.Attributes;
 using tapStoryWebApi.Common.Services;
 using tapStoryWebApi.Exceptions;
-using tapStoryWebData.Identity.Contexts;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebData.EF.Contexts;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Files.Services
 {
-    public class FileService
+    public class FileService : IDataService
     {
 
         private readonly AuditService _auditService;
@@ -20,28 +20,25 @@ namespace tapStoryWebApi.Files.Services
             _ctx = ctx;
         }
 
-        //Get File Groups Not Associated With User
-        public IQueryable<FileGroup> GetBookFileGroups()
+        //Get File Group
+        public IQueryable<FileGroup> GetFileGroup(int fileGroupId)
         {
-            return _ctx.FileGroups.Where(fg => fg.FileGroupType == FileGroupType.Book);
-        } 
-
-        //Get File Groups For a User
-        public IQueryable<FileGroup> GetUserStoryFileGroups(int userId)
-        {
-            return _ctx.UserFileGroups.Where(ufg => ufg.UserId == userId).Select(ufg => ufg.FileGroup);
+            return _ctx.FileGroups.Include("Files").Where(e => e.Id == fileGroupId);
         } 
 
         //Get Files For a File Group
-        public IQueryable<File> GetFiles(int fileGroupId)
+        public IQueryable<File> GetFiles(int fileId)
         {
-            return _ctx.Files.Where(f => f.FileGroupId == fileGroupId);
-        } 
+            return _ctx.Files.Where(f => f.Id == fileId);
+        }
 
         //Add File Group
         public void AddFileGroup(FileGroup f)
         {
             _ctx.FileGroups.Add(f);
+
+            //TODO: Add files to file group
+
             _auditService.AddAuditRecord(AuditTable.FileGroup, AuditRecordType.Created);
         }
 
@@ -54,21 +51,9 @@ namespace tapStoryWebApi.Files.Services
 
         }
 
-        //Add File To File Group
-        public void AddFilesToFileGroup(int fileGroupId, IEnumerable<File> files)
-        {
-
-            var fileGroup = _ctx.FileGroups.FirstOrDefault(fg => fg.Id == fileGroupId);
-            if (fileGroup == null) throw new DataNotFoundException(String.Format("No file group with id {0} was found", fileGroupId));
-            foreach (var f in files)
-            {
-                //TODO: Upload File
-
-                _ctx.Files.Add(f);                    
-            }
-        }
 
         //Remove File From File Group
+        [ReferenceServiceFunction("FileGroups", "Files", ReferenceServiceFunctionType.Delete)]
         public void RemoveFileFromFileGroup(int fileGroupId, int fileId)
         {
 
@@ -84,6 +69,7 @@ namespace tapStoryWebApi.Files.Services
             }
 
         }
+
 
         //Associate File Group With User
         public void AssociateFileGroupWithUser(int userId, int fileGroupId)

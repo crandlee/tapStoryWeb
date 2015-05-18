@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace tapStoryWebData.Identity.Models
+namespace tapStoryWebData.EF.Models
 {
-    [Table("UserRelationship")]
     public class UserRelationship
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -1,4 +1,4 @@
-﻿namespace tapStoryWebData.Identity.Models
+﻿namespace tapStoryWebData.EF.Models
 {
     public enum RelationshipType
     {

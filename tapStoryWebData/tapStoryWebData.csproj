@@ -62,17 +62,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Identity\Contexts\ApplicationDbContext.cs" />
-    <Compile Include="Identity\Models\ApplicationRole.cs" />
-    <Compile Include="Identity\Models\ApplicationRoleStore.cs" />
-    <Compile Include="Identity\Models\ApplicationUser.cs" />
-    <Compile Include="Identity\Models\ApplicationUserClaim.cs" />
-    <Compile Include="Identity\Models\ApplicationUserLogin.cs" />
-    <Compile Include="Identity\Models\ApplicationUserRole.cs" />
-    <Compile Include="Identity\Models\ApplicationUserStore.cs" />
-    <Compile Include="Identity\Models\RelationshipType.cs" />
-    <Compile Include="Identity\Models\RoleEnum.cs" />
-    <Compile Include="Identity\Models\UserRelationship.cs" />
+    <Compile Include="EF\Contexts\ApplicationDbContext.cs" />
+    <Compile Include="EF\Models\ApplicationRole.cs" />
+    <Compile Include="EF\Models\ApplicationRoleStore.cs" />
+    <Compile Include="EF\Models\ApplicationUser.cs" />
+    <Compile Include="EF\Models\ApplicationUserClaim.cs" />
+    <Compile Include="EF\Models\ApplicationUserLogin.cs" />
+    <Compile Include="EF\Models\ApplicationUserRole.cs" />
+    <Compile Include="EF\Models\ApplicationUserRoleExtension.cs" />
+    <Compile Include="EF\Models\ApplicationUserStore.cs" />
+    <Compile Include="EF\Models\Audit.cs" />
+    <Compile Include="EF\Models\AuditRecordType.cs" />
+    <Compile Include="EF\Models\AuditTable.cs" />
+    <Compile Include="EF\Models\File.cs" />
+    <Compile Include="EF\Models\FileGroup.cs" />
+    <Compile Include="EF\Models\FileGroupType.cs" />
+    <Compile Include="EF\Models\FileType.cs" />
+    <Compile Include="EF\Models\RelationshipType.cs" />
+    <Compile Include="EF\Models\RoleEnum.cs" />
+    <Compile Include="EF\Models\UserFileGroup.cs" />
+    <Compile Include="EF\Models\UserRelationship.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

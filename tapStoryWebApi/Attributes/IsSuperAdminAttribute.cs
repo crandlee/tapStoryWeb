@@ -21,7 +21,7 @@ namespace tapStoryWebApi.Attributes
             }
 
             var hasRole = await RoleService.UserHasRoleAsync(actionContext.Request.GetOwinContext().Get<ApplicationUserManager>(),
-                        user.Identity.GetUserId<int>(), tapStoryWebData.Identity.Models.Roles.SuperAdmin.ToString());
+                        user.Identity.GetUserId<int>(), tapStoryWebData.EF.Models.Roles.SuperAdmin.ToString());
             if (hasRole)
             {
                 base.OnAuthorization(actionContext);

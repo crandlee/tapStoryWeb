@@ -3,8 +3,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.OData;
 using Microsoft.AspNet.Identity.Owin;
-using tapStoryWebData.Identity.Contexts;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebData.EF.Contexts;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Accounts.Controllers
 {

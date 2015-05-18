@@ -41,7 +41,7 @@ namespace tapStoryWebApi.Attributes
             //Validate admin roles
             //NOTE:  Made this synchronous because making it async conflicts with the potential async calls that the controller might use.  Cannot queue up two async calls with EF
             var hasRoles = RoleService.UserHasRoles(actionContext.Request.GetOwinContext().Get<ApplicationUserManager>(),
-                        user.Identity.GetUserId<int>(), new[] { tapStoryWebData.Identity.Models.Roles.Admin.ToString(), tapStoryWebData.Identity.Models.Roles.SuperAdmin.ToString() });
+                        user.Identity.GetUserId<int>(), new[] { tapStoryWebData.EF.Models.Roles.Admin.ToString(), tapStoryWebData.EF.Models.Roles.SuperAdmin.ToString() });
             if (hasRoles)
             {
                 base.OnAuthorization(actionContext);                

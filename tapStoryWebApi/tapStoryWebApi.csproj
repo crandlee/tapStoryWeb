@@ -41,6 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.4.0.0-ci1046\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="DataAnnotationsExtensions">
       <HintPath>..\packages\DataAnnotationsExtensions.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
     </Reference>
@@ -203,12 +206,23 @@
     <Compile Include="Accounts\Controllers\RoleController.cs" />
     <Compile Include="Accounts\Controllers\RolesController.cs" />
     <Compile Include="Accounts\Controllers\SampleController.cs" />
+    <Compile Include="Attributes\ReferenceServiceFunction.cs" />
     <Compile Include="Common\Factories\ServiceFactory.cs" />
+    <Compile Include="Common\Helpers\ReferenceFunctionHelper.cs" />
     <Compile Include="Common\Services\AuditService.cs" />
+    <Compile Include="Common\Services\IDataService.cs" />
+    <Compile Include="Exceptions\ControllerException.cs" />
     <Compile Include="Exceptions\DataNotFoundException.cs" />
+    <Compile Include="Exceptions\InternalErrorActionResult.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Files\Controllers\BooksController.cs" />
     <Compile Include="Files\Controllers\FileGroupsController.cs" />
+    <Compile Include="Files\Controllers\FilesController.cs" />
+    <Compile Include="Files\Services\BookService.cs" />
     <Compile Include="Files\Services\FileService.cs" />
+    <Compile Include="Files\ViewModels\BookFileGroup.cs" />
+    <Compile Include="ODataConfiguration\NullEntityTypeSerializer.cs" />
+    <Compile Include="ODataConfiguration\NullSeralizerProvider.cs" />
     <Compile Include="Relationships\Controllers\UserRelationshipsController.cs" />
     <Compile Include="Accounts\Controllers\UserRolesController.cs" />
     <Compile Include="Accounts\Controllers\UsersController.cs" />

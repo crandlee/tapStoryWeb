@@ -2,6 +2,7 @@
 using System.Web.Http.Cors;
 using System.Web.OData.Extensions;
 using System.Web.OData.Formatter;
+using System.Web.OData.Formatter.Deserialization;
 using Microsoft.Owin;
 using Owin;
 using tapStoryWebApi;
@@ -41,7 +42,7 @@ namespace tapStoryWebApi
             configuration.MapODataServiceRoute("odata", "odata", ODataEdm.GetModel());
             
             //API/ODATA Formatters
-            var odataFormatters = ODataMediaTypeFormatters.Create();
+            var odataFormatters = ODataMediaTypeFormatters.Create(new NullSerializerProvider(), new DefaultODataDeserializerProvider());
             var apiFormatter = configuration.Formatters.JsonFormatter;
             configuration.Formatters.Clear();
             configuration.Formatters.AddRange(odataFormatters);

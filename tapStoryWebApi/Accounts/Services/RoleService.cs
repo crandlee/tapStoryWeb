@@ -3,12 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using tapStoryWebApi.Accounts.Configuration;
-using tapStoryWebData.Identity.Contexts;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebApi.Common.Services;
+using tapStoryWebData.EF.Contexts;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Accounts.Services
 {
-    public class RoleService
+    public class RoleService : IDataService
     {
         public static ApplicationRole GetRoleByName(ApplicationRoleManager roleManager, string roleName)
         {

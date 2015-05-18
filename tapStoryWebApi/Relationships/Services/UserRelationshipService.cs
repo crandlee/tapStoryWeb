@@ -1,10 +1,11 @@
 ﻿using System.Linq;
-using tapStoryWebData.Identity.Contexts;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebApi.Common.Services;
+using tapStoryWebData.EF.Contexts;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Relationships.Services
 {
-    public class UserRelationshipService
+    public class UserRelationshipService : IDataService
     {
         public static IQueryable<UserRelationship> GetUserRelationships(ApplicationDbContext ctx)
         {

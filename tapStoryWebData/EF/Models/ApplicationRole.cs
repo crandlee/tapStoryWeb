@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace tapStoryWebData.Identity.Models
+namespace tapStoryWebData.EF.Models
 {
     public class ApplicationRole : IdentityRole<int, ApplicationUserRole>
     {

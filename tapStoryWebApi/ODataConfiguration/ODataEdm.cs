@@ -1,7 +1,8 @@
 ﻿using System.Web.OData.Builder;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.OData.Edm;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebApi.Files.ViewModels;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.ODataConfiguration
 {
@@ -21,6 +22,8 @@ namespace tapStoryWebApi.ODataConfiguration
         private static ODataModelBuilder AddFileConfiguration(ODataModelBuilder builder)
         {
             builder.EntitySet<FileGroup>("FileGroups");
+            builder.EntitySet<BookFileGroup>("Books");
+            builder.EntitySet<File>("Files");
             return builder;
         }
 

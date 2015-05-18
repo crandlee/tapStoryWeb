@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace tapStoryWebData.Identity.Models
+namespace tapStoryWebData.EF.Models
 {
     public class ApplicationUserLogin : IdentityUserLogin<int>
     {

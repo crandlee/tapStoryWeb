@@ -17,7 +17,7 @@ using tapStoryWebApi.Accounts.Providers;
 using tapStoryWebApi.Accounts.Results;
 using tapStoryWebApi.Accounts.Services;
 using tapStoryWebApi.Accounts.ViewModels;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Accounts.Controllers
 {

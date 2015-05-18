@@ -4,12 +4,13 @@ using System.Linq;
 using Microsoft.AspNet.Identity;
 using NLog;
 using tapStoryWebApi.Accounts.Configuration;
-using tapStoryWebData.Identity.Contexts;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebApi.Common.Services;
+using tapStoryWebData.EF.Contexts;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Accounts.Services
 {
-    public class UserService
+    public class UserService : IDataService  
     {
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 

@@ -7,8 +7,8 @@ using Microsoft.Owin;
 using NLog;
 using tapStoryWebApi.Accounts.Configuration;
 using tapStoryWebApi.Accounts.Services;
-using tapStoryWebData.Identity.Contexts;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebData.EF.Contexts;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Middleware
 {

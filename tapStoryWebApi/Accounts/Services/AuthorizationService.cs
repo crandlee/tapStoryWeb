@@ -7,8 +7,8 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using tapStoryWebApi.Accounts.Configuration;
 using tapStoryWebApi.Accounts.Providers;
-using tapStoryWebData.Identity.Contexts;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebData.EF.Contexts;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Accounts.Services
 {

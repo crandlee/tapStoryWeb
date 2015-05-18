@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace tapStoryWebData.Identity.Models
+namespace tapStoryWebData.EF.Models
 {
     public sealed class Roles
     {

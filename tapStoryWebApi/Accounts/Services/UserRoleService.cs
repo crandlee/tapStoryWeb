@@ -1,10 +1,11 @@
 ﻿using System.Linq;
-using tapStoryWebData.Identity.Contexts;
-using tapStoryWebData.Identity.Models;
+using tapStoryWebApi.Common.Services;
+using tapStoryWebData.EF.Contexts;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Accounts.Services
 {
-    public class UserRoleService
+    public class UserRoleService : IDataService
     {
         public static IQueryable<ApplicationUserRole> GetUserRole(ApplicationDbContext ctx, int roleId, int userId)
         {
