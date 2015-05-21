@@ -13,10 +13,10 @@ namespace tapStoryWebApi.Common.Factories
     public static class ServiceFactory
     {
 
-        public static FileService GetFileService(ApplicationDbContext ctx, HttpRequestMessage request, IPrincipal principal)
+        public static FileDataService GetFileService(ApplicationDbContext ctx, HttpRequestMessage request, IPrincipal principal)
         {
             var auditService = GetAuditService(ctx, request, principal);
-            return new FileService(ctx, auditService);
+            return new FileDataService(ctx, auditService);
         }
 
         public static BookService GetBookService(ApplicationDbContext ctx, HttpRequestMessage request, IPrincipal principal)

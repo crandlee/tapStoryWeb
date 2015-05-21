@@ -16,8 +16,8 @@ namespace tapStoryWebApi.Common.Services
             _user = user;
         }
 
-        public void AddAuditRecord(AuditTable table, AuditRecordType recordType,
-            string additionalInformation = null, bool saveContextAfter = false)
+        public void AddAuditRecord(AuditTable table, AuditRecordType recordType, 
+            string auditTableId = null, string additionalInformation = null, bool saveContextAfter = false)
         {
             var userId = (_user != null) ? _user.Id : 0;
            
@@ -27,6 +27,7 @@ namespace tapStoryWebApi.Common.Services
                 RecordType = recordType,                
                 AuditTime = DateTime.Now,
                 AuditUser = userId,
+                AuditTableId = auditTableId,
                 TableName = table
             });
 
@@ -35,7 +36,7 @@ namespace tapStoryWebApi.Common.Services
         }
 
         public async void AddAuditRecordAsync(AuditTable table, AuditRecordType recordType,
-            string additionalInformation = null)
+            string auditTableId = null, string additionalInformation = null)
         {
 
             var userId = (_user != null) ? _user.Id : 0;
@@ -45,6 +46,7 @@ namespace tapStoryWebApi.Common.Services
                 RecordType = recordType,
                 AuditTime = DateTime.Now,
                 AuditUser = userId,
+                AuditTableId = auditTableId,
                 TableName = table
             });
             await _ctx.SaveChangesAsync();

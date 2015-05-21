@@ -16,7 +16,11 @@ namespace tapStoryWebData.EF.Models
         [Required, MaxLength(200)]
         public string GroupName { get; set; }
 
+        [Required, MaxLength(200)]
+        public string ServerId { get; set; }
+
         public virtual ICollection<File> Files { get; set; }
+
 
     }
 }

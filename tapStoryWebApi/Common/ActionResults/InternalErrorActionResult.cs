@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using NLog;
 
-namespace tapStoryWebApi.Exceptions
+namespace tapStoryWebApi.Common.ActionResults
 {
     public class InternalErrorActionResult : IHttpActionResult
     {
@@ -15,7 +16,7 @@ namespace tapStoryWebApi.Exceptions
         private readonly string _methodName;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        public InternalErrorActionResult(ApiController c, Exception e, string methodName)
+        public InternalErrorActionResult(ApiController c, Exception e, [CallerMemberName] string methodName = null)
         {
             _controller = c;
             _exception = e;

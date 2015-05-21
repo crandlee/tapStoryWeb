@@ -22,7 +22,6 @@ namespace tapStoryWebApi.ODataConfiguration
         private static ODataModelBuilder AddFileConfiguration(ODataModelBuilder builder)
         {
             builder.EntitySet<FileGroup>("FileGroups");
-            builder.EntitySet<BookFileGroup>("Books");
             builder.EntitySet<File>("Files");
             return builder;
         }

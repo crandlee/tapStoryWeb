@@ -13,8 +13,10 @@ using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Files.Controllers
 {
-    public class BooksController : ApiController
+    [Authorize]
+    public class UserStoryController : ApiController
     {
+
         private LocalPhysicalFileService _fileContentService;
         private ApplicationDbContext _ctx;
         private FileDataService _fileDataService;
@@ -25,7 +27,7 @@ namespace tapStoryWebApi.Files.Controllers
             _ctx = ServiceFactory.GetDbContext<ApplicationDbContext>(controllerContext.Request);
             _fileDataService = ServiceFactory.GetFileService(_ctx, controllerContext.Request, controllerContext.RequestContext.Principal);
             _fileContentService = new LocalPhysicalFileService(ConfigurationManager.AppSettings["BaseUploadsFolder"]);
-            _fileGroupContentCommon = new FileGroupContentCommon(this, _ctx, _fileContentService, _fileDataService, false, FileGroupType.Book);
+            _fileGroupContentCommon = new FileGroupContentCommon(this, _ctx, _fileContentService, _fileDataService, true, FileGroupType.UserStory);
             base.Initialize(controllerContext);
         }
 

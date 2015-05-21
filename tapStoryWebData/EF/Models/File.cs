@@ -23,5 +23,8 @@ namespace tapStoryWebData.EF.Models
         [ForeignKey("FileGroupId")]
         public virtual FileGroup FileGroup { get; set; }
 
+        [Required, MaxLength(200)]
+        public string ServerId { get; set; }
+
     }
 }

@@ -8,5 +8,6 @@ namespace tapStoryWebApi.Files.ViewModels
         public int Id { get; set; }
         public string BookName { get; set; }
         public virtual ICollection<File> Files { get; set; }
+        public string ServerId { get; set; }
     }
 }

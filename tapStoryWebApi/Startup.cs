@@ -4,6 +4,7 @@ using System.Web.OData.Extensions;
 using System.Web.OData.Formatter;
 using System.Web.OData.Formatter.Deserialization;
 using Microsoft.Owin;
+using Newtonsoft.Json;
 using Owin;
 using tapStoryWebApi;
 using tapStoryWebApi.Accounts.Services;
@@ -48,7 +49,7 @@ namespace tapStoryWebApi
             configuration.Formatters.AddRange(odataFormatters);
             configuration.Formatters.Add(apiFormatter);
             //configuration.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
-         
+            configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             //Initialize Authorization Server
             AuthorizationService.ConfigureAuthorization(app);
 
