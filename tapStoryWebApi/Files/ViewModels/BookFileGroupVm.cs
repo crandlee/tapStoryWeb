@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Files.ViewModels
 {
-    public class BookFileGroup
+    public class BookFileGroupVm
     {
         public int Id { get; set; }
         public string BookName { get; set; }
-        public virtual ICollection<File> Files { get; set; }
+        public virtual IEnumerable<FileVm> OdFiles { get; set; }
         public string ServerId { get; set; }
     }
 }

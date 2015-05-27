@@ -6,6 +6,7 @@ using tapStoryWebApi.Attributes;
 using tapStoryWebApi.Common.Services;
 using tapStoryWebApi.Exceptions;
 using tapStoryWebApi.Extensions;
+using tapStoryWebApi.Files.ViewModels;
 using tapStoryWebData.EF.Contexts;
 using tapStoryWebData.EF.Models;
 
@@ -33,9 +34,71 @@ namespace tapStoryWebApi.Files.Services
             return _ctx.FileGroups.Include("Files").Where(e => e.ServerId == fileGroupServerId);
         } 
 
-        public IQueryable<File> GetFiles(int fileId)
+        //Get User File Groups
+        public IQueryable<UserStoryVm> GetUserFileGroups(int? fileGroupId = null)
         {
-            return _ctx.Files.Where(f => f.Id == fileId);
+            return from ufg in _ctx.UserFileGroups
+                join fg in _ctx.FileGroups on ufg.FileGroupId equals fg.Id
+                where fg.FileGroupType == FileGroupType.UserStory && (fg.Id == fileGroupId || fileGroupId == null)
+                   select new UserStoryVm() { StoryName = fg.GroupName, Id = fg.Id, UserId = ufg.UserId, OdFiles = fg.Files.Select(file => new FileVm()
+            {
+                Id = file.Id,
+                FileType = file.FileType,
+                FileName = file.FileName,
+                FileLocation = file.FileLocation,
+                ServerId = file.ServerId,
+                FileGroupId = file.FileGroupId
+            }) };
+        }
+
+        //Get Book File Groups
+        public IQueryable<BookFileGroupVm> GetBookFileGroups()
+        {
+            return from fg in _ctx.FileGroups
+                   where fg.FileGroupType == FileGroupType.Book
+                   select new BookFileGroupVm()
+                   {
+                       BookName = fg.GroupName,
+                       Id = fg.Id,
+                       OdFiles = fg.Files.Select(file => new FileVm()
+                       {
+                           Id = file.Id,
+                           FileType = file.FileType,
+                           FileName = file.FileName,
+                           FileLocation = file.FileLocation,
+                           ServerId = file.ServerId,
+                           FileGroupId =  file.FileGroupId
+                       })
+                   };
+        }
+
+        //Get Files for File Group Id
+        public IQueryable<FileVm> GetFileGroupFiles(int fileGroupId)
+        {
+            return from file in _ctx.Files
+                   where file.FileGroupId == fileGroupId
+                   select new FileVm()
+                   {
+                       Id = file.Id,
+                       FileType = file.FileType,
+                       FileName = file.FileName,
+                       FileLocation = file.FileLocation,
+                       ServerId = file.ServerId,
+                       FileGroupId = file.FileGroupId
+                   };
+        }
+
+        public IQueryable<FileVm> GetFiles(int? fileId = null)
+        {
+            return _ctx.Files.Where(f => f.Id == fileId || fileId == null).Select(file => new FileVm()
+            {
+                Id = file.Id,
+                FileType = file.FileType,
+                FileName = file.FileName,
+                FileLocation = file.FileLocation,
+                ServerId = file.ServerId,
+                FileGroupId = file.FileGroupId
+            });
         }
 
         public void AddFileGroup(FileGroup fg)

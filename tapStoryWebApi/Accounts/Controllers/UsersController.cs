@@ -1,5 +1,4 @@
-﻿using System.Data.Entity.Core.Objects;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.OData;
@@ -7,7 +6,6 @@ using System.Web.OData.Query;
 using Microsoft.AspNet.Identity.Owin;
 using NLog;
 using tapStoryWebApi.Accounts.Services;
-using tapStoryWebApi.Extensions;
 using tapStoryWebData.EF.Contexts;
 using tapStoryWebData.EF.Models;
 

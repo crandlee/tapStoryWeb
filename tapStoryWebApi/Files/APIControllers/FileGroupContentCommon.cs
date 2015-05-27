@@ -15,7 +15,7 @@ using tapStoryWebApi.Extensions;
 using tapStoryWebApi.Files.Services;
 using tapStoryWebData.EF.Models;
 
-namespace tapStoryWebApi.Files.Controllers
+namespace tapStoryWebApi.Files.APIControllers
 {
     public class FileGroupContentCommon
     {

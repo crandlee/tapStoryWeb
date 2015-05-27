@@ -23,7 +23,7 @@ namespace tapStoryWebApi.Files.Services
             _ctx = ctx;
         }
 
-        public IQueryable<BookFileGroup> GetBookFileGroups()
+        public IQueryable<BookFileGroupVm> GetBookFileGroups()
         {
             var bfgs =  _ctx.FileGroups.Include("Files").Where(e => e.FileGroupType == FileGroupType.Book).
                 ToArray().Select(CreateBookFileGroup).AsQueryable();
@@ -32,11 +32,11 @@ namespace tapStoryWebApi.Files.Services
 
 
         //Create BookFileGroup ViewModel
-        private static BookFileGroup CreateBookFileGroup(FileGroup fg)
+        private static BookFileGroupVm CreateBookFileGroup(FileGroup fg)
         {
-            Mapper.CreateMap<FileGroup, BookFileGroup>()
+            Mapper.CreateMap<FileGroup, BookFileGroupVm>()
                 .ForMember(dest => dest.BookName, opt => opt.MapFrom(src => src.GroupName));
-            var bfg = Mapper.Map<BookFileGroup>(fg);
+            var bfg = Mapper.Map<BookFileGroupVm>(fg);
             return bfg;
         }
     }

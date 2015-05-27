@@ -37,14 +37,14 @@ namespace tapStoryWebApi.Middleware
 
                 }
 
-            }
+                await Next.Invoke(context);
+
+            } 
             catch (Exception e)
             {
                 Logger.Error("Invoke threw an exception: {0}", e.ToString());
                 throw;
             }
- 
-            await Next.Invoke(context);
 
         }
 

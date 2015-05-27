@@ -11,7 +11,7 @@ using tapStoryWebApi.Files.Services;
 using tapStoryWebData.EF.Contexts;
 using tapStoryWebData.EF.Models;
 
-namespace tapStoryWebApi.Files.Controllers
+namespace tapStoryWebApi.Files.APIControllers
 {
     [Authorize]
     public class UserStoryController : ApiController
