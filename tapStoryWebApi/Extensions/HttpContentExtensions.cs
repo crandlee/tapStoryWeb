@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -21,6 +22,7 @@ namespace tapStoryWebApi.Extensions
                 {
                     var file = await content.ReadAsByteArrayAsync();
                     var fileName = content.Headers.ContentDisposition.FileName.Trim('"');
+                    fileName = fileName.Substring(Path.GetPathRoot(fileName).Length);
                     files.Add(fieldName, new HttpPostedFile(fieldName, fileName, file));
                 }
                 else

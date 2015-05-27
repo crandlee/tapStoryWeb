@@ -71,14 +71,14 @@ namespace tapStoryWebApi.Files.Services
         public IEnumerable<HttpPostedFile> GetFiles(string fileGroupServerId)
         {
             var filesInFolder = Directory.GetFiles(_basePath + fileGroupServerId);
-            return (from file in filesInFolder let fileContents = File.ReadAllBytes(file) select new HttpPostedFile(Path.GetFileName(file), file, fileContents, file)).ToList();
+            return (from file in filesInFolder let fileContents = File.ReadAllBytes(file) let fileServerId = Path.GetFileName(file) select new HttpPostedFile(fileServerId, file, fileContents, fileServerId)).ToList();
         }
 
         public HttpPostedFile GetFile(string fileGroupServerId, string fileServerId)
         {
             var file = _basePath + fileGroupServerId + "\\" + fileServerId;
             var fileContents = File.ReadAllBytes(file);
-            return new HttpPostedFile(Path.GetFileName(file), file, fileContents, file);
+            return new HttpPostedFile(Path.GetFileName(file), file, fileContents, fileServerId);
         }
     }
 }

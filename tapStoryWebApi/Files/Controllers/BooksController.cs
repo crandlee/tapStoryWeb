@@ -31,7 +31,7 @@ namespace tapStoryWebApi.Files.Controllers
 
         //ADD FILE GROUP - RETURNS FILE GROUP SERVER REPRESENTATION
         [AcceptVerbs("POST")]
-        [Route("api/UserStory")]
+        [Route("api/Book")]
         public async Task<IHttpActionResult> CreateFileGroup()
         {
             if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
@@ -49,7 +49,7 @@ namespace tapStoryWebApi.Files.Controllers
 
         //UPDATE EXISTING FILE GROUP - OVERWRITE ALL
         [AcceptVerbs("PUT")]
-        [Route("api/UserStory")]
+        [Route("api/Book")]
         public async Task<IHttpActionResult> OverwriteFileGroup()
         {
             if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
@@ -66,7 +66,7 @@ namespace tapStoryWebApi.Files.Controllers
 
         //UPDATE EXISTING FILE GROUP - ADD ONLY NEW
         [AcceptVerbs("PATCH")]
-        [Route("api/UserStory")]
+        [Route("api/Book")]
         public async Task<IHttpActionResult> UpdateFileGroup()
         {
             if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
@@ -83,7 +83,7 @@ namespace tapStoryWebApi.Files.Controllers
 
         //DELETE FILE GROUP
         [AcceptVerbs("DELETE")]
-        [Route("api/UserStory/{fileGroupServerId}")]
+        [Route("api/Book/{fileGroupServerId}")]
         public async Task<IHttpActionResult> DeleteFileGroup(string fileGroupServerId)
         {
 
@@ -99,7 +99,7 @@ namespace tapStoryWebApi.Files.Controllers
         }
 
         //GET SERVER REPRESENTATION OF FILE GROUP
-        [Route("api/UserStory/{fileGroupServerId}")]
+        [Route("api/Book/{fileGroupServerId}")]
         public IHttpActionResult Get(string fileGroupServerId)
         {
             return _fileGroupContentCommon.GetFileGroup(fileGroupServerId);
