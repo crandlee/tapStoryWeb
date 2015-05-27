@@ -104,7 +104,14 @@ namespace tapStoryWebApi.Files.Controllers
         [Route("api/UserStory/{fileGroupServerId}")]
         public IHttpActionResult Get(string fileGroupServerId)
         {
-            return _fileGroupContentCommon.GetFileGroup(fileGroupServerId);
+            try
+            {
+                return _fileGroupContentCommon.GetFileGroup(fileGroupServerId);
+            }
+            catch (Exception e)
+            {
+                return new InternalErrorActionResult(this, e);
+            }
         }
 
         protected override void Dispose(bool disposing)
