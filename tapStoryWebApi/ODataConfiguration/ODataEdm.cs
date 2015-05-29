@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.OData.Edm;
 using tapStoryWebApi.Files.ViewModels;
+using tapStoryWebApi.Relationships.ViewModels;
 using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.ODataConfiguration
@@ -51,10 +52,13 @@ namespace tapStoryWebApi.ODataConfiguration
         private static ODataModelBuilder AddUserRelationshipConfiguration(ODataModelBuilder builder)
         {
             builder.EntitySet<UserRelationship>("UserRelationships");
-            var urGetFunc = builder.Function("RetrieveUserRelationships");                
-            urGetFunc.Parameter<int>("PrimaryMemberId");
-            urGetFunc.Parameter<int>("SecondaryMemberId");
-            urGetFunc.ReturnsCollectionFromEntitySet<UserRelationship>("UserRelationships");
+            //var urGetFunc = builder.Function("RetrieveUserRelationships");                
+            //urGetFunc.Parameter<int>("PrimaryMemberId");
+            //urGetFunc.Parameter<int>("SecondaryMemberId");
+            //urGetFunc.ReturnsCollectionFromEntitySet<UserRelationship>("UserRelationships");
+            builder.EntitySet<ChildRelationshipViewModel>("OdChildren");
+            builder.EntitySet<GuardianRelationshipViewModel>("OdGuardians");
+            builder.EntitySet<FriendRelationshipViewModel>("OdFriends");
             return builder;
         }
 

@@ -1,17 +1,23 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Security.Principal;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using tapStoryWebApi.Accounts.Configuration;
 using tapStoryWebApi.Common.Services;
 using tapStoryWebApi.Files.Services;
+using tapStoryWebApi.Relationships.Services;
 using tapStoryWebData.EF.Contexts;
 
 namespace tapStoryWebApi.Common.Factories
 {
     public static class ServiceFactory
     {
+
+        public static UserRelationshipService GetUserRelationshipService(ApplicationDbContext ctx, HttpRequestMessage request, IPrincipal principal)
+        {
+            var auditService = GetAuditService(ctx, request, principal);
+            return new UserRelationshipService(ctx, auditService);
+        }
 
         public static FileDataService GetFileService(ApplicationDbContext ctx, HttpRequestMessage request, IPrincipal principal)
         {
