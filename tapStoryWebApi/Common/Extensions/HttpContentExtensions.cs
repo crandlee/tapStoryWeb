@@ -4,7 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace tapStoryWebApi.Extensions
+namespace tapStoryWebApi.Common.Extensions
 {
     public static class HttpContentExtensions
     {

@@ -31,85 +31,50 @@ namespace tapStoryWebApi.Files.APIControllers
 
         //ADD FILE GROUP - RETURNS FILE GROUP SERVER REPRESENTATION
         [AcceptVerbs("POST")]
-        [Route("api/Book")]
+        [Route("api/Books")]
         public async Task<IHttpActionResult> CreateFileGroup()
         {
             if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            try
-            {
-                return await _fileGroupContentCommon.SaveFileGroup(FileGroupContentCommon.FileGroupCreateMode.Create);
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return await _fileGroupContentCommon.SaveFileGroup(FileGroupContentCommon.FileGroupCreateMode.Create);
         }
 
 
 
         //UPDATE EXISTING FILE GROUP - OVERWRITE ALL
         [AcceptVerbs("PUT")]
-        [Route("api/Book")]
+        [Route("api/Books")]
         public async Task<IHttpActionResult> OverwriteFileGroup()
         {
             if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            try
-            {
-                return await _fileGroupContentCommon.SaveFileGroup(FileGroupContentCommon.FileGroupCreateMode.Overwrite);
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return await _fileGroupContentCommon.SaveFileGroup(FileGroupContentCommon.FileGroupCreateMode.Overwrite);
 
         }
 
         //UPDATE EXISTING FILE GROUP - ADD ONLY NEW
         [AcceptVerbs("PATCH")]
-        [Route("api/Book")]
+        [Route("api/Books")]
         public async Task<IHttpActionResult> UpdateFileGroup()
         {
             if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            try
-            {
-                return await _fileGroupContentCommon.SaveFileGroup(FileGroupContentCommon.FileGroupCreateMode.Edit);
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return await _fileGroupContentCommon.SaveFileGroup(FileGroupContentCommon.FileGroupCreateMode.Edit);
 
         }
 
         //DELETE FILE GROUP
         [AcceptVerbs("DELETE")]
-        [Route("api/Book/{fileGroupServerId}")]
+        [Route("api/Books/{fileGroupServerId}")]
         public async Task<IHttpActionResult> DeleteFileGroup(string fileGroupServerId)
         {
 
-            try
-            {
-                return await _fileGroupContentCommon.DeleteFileGroup(fileGroupServerId);
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return await _fileGroupContentCommon.DeleteFileGroup(fileGroupServerId);
 
         }
 
         //GET SERVER REPRESENTATION OF FILE GROUP
-        [Route("api/Book/{fileGroupServerId}")]
+        [Route("api/Books/{fileGroupServerId}")]
         public IHttpActionResult Get(string fileGroupServerId)
         {
-            try
-            {
-                return _fileGroupContentCommon.GetFileGroup(fileGroupServerId);
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return _fileGroupContentCommon.GetFileGroup(fileGroupServerId);
         }
 
         protected override void Dispose(bool disposing)

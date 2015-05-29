@@ -218,23 +218,27 @@
     <Compile Include="Common\ActionResults\NoContentActionResult.cs" />
     <Compile Include="Common\ActionResults\NotFoundActionResult.cs" />
     <Compile Include="Common\ActionResults\OkActionResult.cs" />
+    <Compile Include="Common\Exceptions\Global\GlobalExceptionHandler.cs" />
+    <Compile Include="Common\Exceptions\Global\NLogExceptionLogger.cs" />
     <Compile Include="Common\Factories\SecurityFactory.cs" />
     <Compile Include="Common\Factories\ServiceFactory.cs" />
+    <Compile Include="Common\Helpers\ControllerHelper.cs" />
     <Compile Include="Common\Helpers\ReferenceFunctionHelper.cs" />
+    <Compile Include="Common\BaseClasses\SecurityService.cs" />
+    <Compile Include="Common\Helpers\ViewModelBuilder.cs" />
     <Compile Include="Common\Services\AuditService.cs" />
     <Compile Include="Common\Services\IDataService.cs" />
-    <Compile Include="Exceptions\ControllerException.cs" />
-    <Compile Include="Exceptions\DataNotFoundException.cs" />
-    <Compile Include="Common\ActionResults\InternalErrorActionResult.cs" />
-    <Compile Include="Extensions\CoreExtensions.cs" />
-    <Compile Include="Extensions\HttpContentExtensions.cs" />
-    <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Common\Exceptions\ControllerException.cs" />
+    <Compile Include="Common\Exceptions\DataNotFoundException.cs" />
+    <Compile Include="Common\Extensions\CoreExtensions.cs" />
+    <Compile Include="Common\Extensions\HttpContentExtensions.cs" />
+    <Compile Include="Common\Extensions\LinqExtensions.cs" />
     <Compile Include="Files\APIControllers\BooksController.cs" />
     <Compile Include="Files\APIControllers\FileGroupContentCommon.cs" />
     <Compile Include="Files\ODataControllers\OdBooksController.cs" />
     <Compile Include="Files\ODataControllers\OdFileGroupsController.cs" />
     <Compile Include="Files\APIControllers\FilesController.cs" />
-    <Compile Include="Files\APIControllers\UserStoryController.cs" />
+    <Compile Include="Files\APIControllers\UserStoriesController.cs" />
     <Compile Include="Files\ODataControllers\OdFilesController.cs" />
     <Compile Include="Files\ODataControllers\OdUserStoriesController.cs" />
     <Compile Include="Files\Services\BookService.cs" />
@@ -247,14 +251,16 @@
     <Compile Include="Files\ViewModels\UserStoryVm.cs" />
     <Compile Include="ODataConfiguration\NullEntityTypeSerializer.cs" />
     <Compile Include="ODataConfiguration\NullSeralizerProvider.cs" />
-    <Compile Include="Relationships\ODataControllers\OdChildrenController.cs" />
+    <Compile Include="Relationships\APIControllers\FriendshipsController.cs" />
+    <Compile Include="Relationships\APIControllers\PendingFriendshipsController.cs" />
+    <Compile Include="Relationships\ODataControllers\OdChildRelationshipsController.cs" />
     <Compile Include="Accounts\Controllers\UserRolesController.cs" />
     <Compile Include="Accounts\Controllers\UsersController.cs" />
     <Compile Include="Accounts\Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Accounts\Results\ChallengeResult.cs" />
     <Compile Include="Accounts\Services\RoleService.cs" />
-    <Compile Include="Relationships\ODataControllers\OdFriendsController.cs" />
-    <Compile Include="Relationships\ODataControllers\OdGuardiansController.cs" />
+    <Compile Include="Relationships\ODataControllers\OdFriendshipsController.cs" />
+    <Compile Include="Relationships\ODataControllers\OdGuardianshipsController.cs" />
     <Compile Include="Relationships\Security\UserRelationshipSecurity.cs" />
     <Compile Include="Relationships\Services\UserRelationshipService.cs" />
     <Compile Include="Accounts\Services\UserRoleService.cs" />
@@ -273,8 +279,6 @@
     <Compile Include="Accounts\ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Accounts\ViewModels\UserLoginInfoViewModel.cs" />
     <Compile Include="Accounts\Services\AuthorizationService.cs" />
-    <Compile Include="Attributes\IsAdminAttribute.cs" />
-    <Compile Include="Attributes\IsSuperAdminAttribute.cs" />
     <Compile Include="Attributes\ValidateViewModelAttribute.cs" />
     <Compile Include="Middleware\AuthorizationInitializer.cs" />
     <Compile Include="ODataConfiguration\ODataEdm.cs" />
@@ -282,7 +286,6 @@
     <Compile Include="Relationships\ViewModels\ChildRelationshipViewModel.cs" />
     <Compile Include="Relationships\ViewModels\FriendRelationshipViewModel.cs" />
     <Compile Include="Relationships\ViewModels\GuardianRelationshipViewModel.cs" />
-    <Compile Include="Relationships\ViewModels\UserRelationshipViewModel.cs" />
     <Compile Include="Routing\RouteConfig.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -292,9 +295,7 @@
       <Name>tapStoryWebData</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Relationships\APIControllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

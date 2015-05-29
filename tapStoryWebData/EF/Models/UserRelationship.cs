@@ -17,6 +17,10 @@ namespace tapStoryWebData.EF.Models
         public int SecondaryMemberId { get; set; }
 
         [Required]
+        public RelationshipStatus RelationshipStatus { get; set; }
+
+        [Required]
+        [Index("IX_PrimarySecondary", 3, IsUnique = true)]
         public RelationshipType RelationshipType { get; set; }
 
         [ForeignKey("PrimaryMemberId")]
@@ -25,5 +29,6 @@ namespace tapStoryWebData.EF.Models
         [ForeignKey("SecondaryMemberId")]
         public virtual ApplicationUser SecondaryMember { get; set; }
 
+        
     }
 }

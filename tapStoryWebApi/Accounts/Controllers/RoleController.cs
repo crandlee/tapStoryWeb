@@ -20,7 +20,6 @@ namespace tapStoryWebApi.Accounts.Controllers
 
         // POST api/Role/
         [AcceptVerbs("POST")]
-        [IsAdmin]
         public async Task<IHttpActionResult> AddRole(AddRoleBindingModel model)
         {
             try
@@ -41,7 +40,6 @@ namespace tapStoryWebApi.Accounts.Controllers
 
         // POST api/Role/
         [AcceptVerbs("DELETE")]
-        [IsAdmin]
         public async Task<IHttpActionResult> RemoveRole(AddRoleBindingModel model)
         {
             try

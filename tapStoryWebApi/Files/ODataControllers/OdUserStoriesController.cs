@@ -25,39 +25,17 @@ namespace tapStoryWebApi.Files.ODataControllers
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IHttpActionResult Get()
         {
-            try
-            {
-                return Ok(_fileDataService.GetUserFileGroups());
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return Ok(_fileDataService.GetUserFileGroups());
         }
 
         public IHttpActionResult Get([FromODataUri] int key)
         {
-            try
-            {
-                return Ok(_fileDataService.GetUserFileGroups(key));
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return Ok(_fileDataService.GetUserFileGroups(key));
         }
 
         public IHttpActionResult GetOdFiles([FromODataUri] int key)
         {
-            try
-            {
-                return Ok(_fileDataService.GetFileGroupFiles(key));
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
-            
+            return Ok(_fileDataService.GetFileGroupFiles(key));            
         } 
 
         protected override void Dispose(bool disposing)

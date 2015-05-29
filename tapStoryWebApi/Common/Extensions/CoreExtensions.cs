@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace tapStoryWebApi.Extensions
+namespace tapStoryWebApi.Common.Extensions
 {
     public static class CoreExtensions
     {

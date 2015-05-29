@@ -14,7 +14,7 @@ namespace tapStoryWebApi.Files.ODataControllers
     {
         private ApplicationDbContext _ctx;
         private FileDataService _fileDataService;
-
+        //TODO:  ADD File Security Across the Board
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             _ctx = ServiceFactory.GetDbContext<ApplicationDbContext>(controllerContext.Request);
@@ -26,14 +26,7 @@ namespace tapStoryWebApi.Files.ODataControllers
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IHttpActionResult Get()
         {
-            try
-            {
-                return Ok(_fileDataService.GetBookFileGroups());
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return Ok(_fileDataService.GetBookFileGroups());
         }
 
 

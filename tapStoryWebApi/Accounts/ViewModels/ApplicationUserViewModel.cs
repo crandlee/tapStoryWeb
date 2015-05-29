@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using tapStoryWebApi.Relationships.ViewModels;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace tapStoryWebApi.Accounts.ViewModels
 {
@@ -12,8 +10,6 @@ namespace tapStoryWebApi.Accounts.ViewModels
         public string LastName { get; set; }
         public string EMail { get; set; }
         public string UserName { get; set; }
-
-        public IEnumerable<UserRelationshipViewModel> UserRelationships { get; set; } 
 
     }
 }

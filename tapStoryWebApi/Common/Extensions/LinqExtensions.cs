@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace tapStoryWebApi.Extensions
+namespace tapStoryWebApi.Common.Extensions
 {
     public static class LinqExtensions
     {

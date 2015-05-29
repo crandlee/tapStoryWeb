@@ -26,27 +26,13 @@ namespace tapStoryWebApi.Files.ODataControllers
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IHttpActionResult Get([FromODataUri] int key)
         {
-            try
-            {
-                return Ok(_fileDataService.GetFileGroup(key));
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);                
-            }
+            return Ok(_fileDataService.GetFileGroup(key));
         }
 
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IHttpActionResult GetFiles([FromODataUri] int key)
         {
-            try
-            {
-                return Ok(_fileDataService.GetFiles(key));
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return Ok(_fileDataService.GetFiles(key));
         }
 
         //public async void DeleteRef([FromODataUri] int key, string navigationProperty,

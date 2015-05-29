@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using tapStoryWebApi.Extensions;
+using tapStoryWebApi.Common.Extensions;
 
 namespace tapStoryWebApi.Files.Services
 {

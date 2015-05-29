@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using tapStoryWebApi.Extensions;
+using tapStoryWebApi.Common.Extensions;
 
 namespace tapStoryWebApi.Files.Services
 {

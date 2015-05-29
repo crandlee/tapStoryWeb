@@ -56,9 +56,9 @@ namespace tapStoryWebApi.ODataConfiguration
             //urGetFunc.Parameter<int>("PrimaryMemberId");
             //urGetFunc.Parameter<int>("SecondaryMemberId");
             //urGetFunc.ReturnsCollectionFromEntitySet<UserRelationship>("UserRelationships");
-            builder.EntitySet<ChildRelationshipViewModel>("OdChildren");
-            builder.EntitySet<GuardianRelationshipViewModel>("OdGuardians");
-            builder.EntitySet<FriendRelationshipViewModel>("OdFriends");
+            builder.EntitySet<ChildRelationshipViewModel>("OdChildRelationships");
+            builder.EntitySet<GuardianRelationshipViewModel>("OdGuardianships");
+            builder.EntitySet<FriendRelationshipViewModel>("OdFriendships");
             return builder;
         }
 

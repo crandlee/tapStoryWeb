@@ -20,6 +20,12 @@ namespace tapStoryWebData.EF.Models
         [ForeignKey("SecondaryMemberId")]
         public ICollection<UserRelationship> SecondaryRelationships { get; set; }
 
+        [Required]
+        public bool IsActive { get; set; }
+
+        [Required]
+        public bool IsMinor { get; set; }
+
         [ForeignKey("PrimaryMemberId")]
         public ICollection<UserRelationship> PrimaryRelationships { get; set; }
 

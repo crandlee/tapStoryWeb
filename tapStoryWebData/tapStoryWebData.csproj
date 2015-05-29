@@ -78,6 +78,7 @@
     <Compile Include="EF\Models\FileGroup.cs" />
     <Compile Include="EF\Models\FileGroupType.cs" />
     <Compile Include="EF\Models\FileType.cs" />
+    <Compile Include="EF\Models\RelationshipStatus.cs" />
     <Compile Include="EF\Models\RelationshipType.cs" />
     <Compile Include="EF\Models\RoleEnum.cs" />
     <Compile Include="EF\Models\UserFileGroup.cs" />

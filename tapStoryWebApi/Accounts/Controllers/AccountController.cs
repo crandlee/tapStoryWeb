@@ -275,7 +275,7 @@ namespace tapStoryWebApi.Accounts.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, IsActive = true };
 
             var result = await UserManager.CreateAsync(user, model.Password);
 
@@ -297,7 +297,7 @@ namespace tapStoryWebApi.Accounts.Controllers
                 return InternalServerError();
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, IsActive = true };
 
             var result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)

@@ -26,14 +26,7 @@ namespace tapStoryWebApi.Files.APIControllers
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IHttpActionResult Get([FromODataUri] int key)
         {
-            try
-            {
-                return Ok(_fileDataService.GetFiles(key));
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e, "Get");
-            }
+            return Ok(_fileDataService.GetFiles(key));
         }
 
     }

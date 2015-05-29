@@ -11,7 +11,7 @@ using tapStoryWebData.EF.Contexts;
 
 namespace tapStoryWebApi.Relationships.ODataControllers
 {
-    public class OdGuardiansController: ODataController
+    public class OdGuardianshipsController: ODataController
     {
 
         private ApplicationDbContext _ctx;
@@ -23,21 +23,14 @@ namespace tapStoryWebApi.Relationships.ODataControllers
             _ctx = ServiceFactory.GetDbContext<ApplicationDbContext>(controllerContext.Request);
             _userRelService = ServiceFactory.GetUserRelationshipService(_ctx, controllerContext.Request,
                 controllerContext.RequestContext.Principal);
-            _userRelSecurity = SecurityFactory.GetUserRelationshipSecurity(controllerContext.RequestContext.Principal);
+            _userRelSecurity = SecurityFactory.GetUserRelationshipSecurity(_ctx, controllerContext.RequestContext.Principal);
             base.Initialize(controllerContext);
         }
 
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IHttpActionResult Get()
         {
-            try
-            {
-                return Ok(_userRelSecurity.SecureGuardianQuery(_userRelService.GetGuardianRelationships()));
-            }
-            catch (Exception e)
-            {
-                return new InternalErrorActionResult(this, e);
-            }
+            return Ok(_userRelSecurity.SecureGuardianQuery(_userRelService.GetGuardianRelationships()));
         }
 
 

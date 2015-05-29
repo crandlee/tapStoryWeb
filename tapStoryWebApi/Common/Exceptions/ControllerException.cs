@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace tapStoryWebApi.Exceptions
+namespace tapStoryWebApi.Common.Exceptions
 {
     public class ControllerException: Exception
     {

@@ -23,11 +23,16 @@ namespace tapStoryWebApi.Common.ActionResults
             _request = request;
             _location = location;
         }
+        public CreatedActionResult(HttpRequestMessage request, T returnObject)
+        {
+            _request = request;
+            _returnObject = returnObject;
+        }
 
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
             var response = _request.CreateResponse(HttpStatusCode.Created, _returnObject);
-            response.Headers.Location = new Uri(_location);
+            if (!String.IsNullOrEmpty(_location)) response.Headers.Location = new Uri(_location);
             return Task.FromResult(response);
         }
     }

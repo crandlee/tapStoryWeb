@@ -1,44 +1,44 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Principal;
-using Microsoft.AspNet.Identity;
+using tapStoryWebApi.Common.BaseClasses;
 using tapStoryWebApi.Relationships.ViewModels;
+using tapStoryWebData.EF.Contexts;
 
 namespace tapStoryWebApi.Relationships.Security
 {
-    public class UserRelationshipSecurity
+    public class UserRelationshipSecurity: SecurityService
     {
-        private readonly IPrincipal _currentUser;
 
-        public UserRelationshipSecurity(IPrincipal currentUser)
+        public UserRelationshipSecurity(ApplicationDbContext ctx, IPrincipal currentPrincipal) : base(ctx, currentPrincipal)
         {
-            _currentUser = currentUser;
-            if (_currentUser == null) throw new ArgumentException("currentUser must be valid", "currentUser");
         }
 
         public IQueryable<ChildRelationshipViewModel> SecureChildrenQuery(IQueryable<ChildRelationshipViewModel> childRelationships)
         {
-            var id = _currentUser.Identity.GetUserId<int>();
             if (childRelationships == null) throw new ArgumentException("childRelationships must be valid", "childRelationships");
-            return childRelationships.Where(c => c.ParentId == id);
+            return childRelationships.Where(c => CurrentUserIsAdmin || CurrentUserIsActive && c.ParentId == CurrentUserId);
 
         }
 
         public IQueryable<FriendRelationshipViewModel> SecureFriendQuery(IQueryable<FriendRelationshipViewModel> friendRelationships)
         {
-            var id = _currentUser.Identity.GetUserId<int>();
             if (friendRelationships == null) throw new ArgumentException("friendRelationships must be valid", "friendRelationships");
-            return friendRelationships.Where(c => c.SourceFriendId == id || c.TargetFriendId == id);
+            return friendRelationships.Where(c => CurrentUserIsAdmin || (CurrentUserIsActive && (c.SourceFriendId == CurrentUserId || c.TargetFriendId == CurrentUserId)));
 
         }
 
         public IQueryable<GuardianRelationshipViewModel> SecureGuardianQuery(IQueryable<GuardianRelationshipViewModel> guardianRelationships)
         {
 
-            var id = _currentUser.Identity.GetUserId<int>();
             if (guardianRelationships == null) throw new ArgumentException("guardianRelationships must be valid", "guardianRelationships");
-            return guardianRelationships.Where(c => c.ChildId == id);
+            return guardianRelationships.Where(c => CurrentUserIsAdmin || (CurrentUserIsActive && c.ChildId == CurrentUserId));
 
+        }
+
+        public bool CanCreatePendingFriendship()
+        {
+            return (CurrentUserIsAdmin || CurrentUserIsAdult);
         }
 
     }

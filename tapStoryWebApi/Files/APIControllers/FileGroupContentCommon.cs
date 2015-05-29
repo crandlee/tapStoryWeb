@@ -11,7 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using Ionic.Zip;
 using tapStoryWebApi.Common.ActionResults;
-using tapStoryWebApi.Extensions;
+using tapStoryWebApi.Common.Extensions;
 using tapStoryWebApi.Files.Services;
 using tapStoryWebData.EF.Models;
 

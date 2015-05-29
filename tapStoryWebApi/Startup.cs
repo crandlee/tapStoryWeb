@@ -1,5 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.ExceptionHandling;
+using System.Web.Http.Filters;
 using System.Web.OData.Extensions;
 using System.Web.OData.Formatter;
 using System.Web.OData.Formatter.Deserialization;
@@ -9,9 +11,11 @@ using Owin;
 using tapStoryWebApi;
 using tapStoryWebApi.Accounts.Services;
 using tapStoryWebApi.Attributes;
+using tapStoryWebApi.Common.Exceptions.Global;
 using tapStoryWebApi.Middleware;
 using tapStoryWebApi.ODataConfiguration;
 using tapStoryWebApi.Routing;
+using IExceptionLogger = System.Web.Http.ExceptionHandling.IExceptionLogger;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace tapStoryWebApi
@@ -55,6 +59,10 @@ namespace tapStoryWebApi
 
             //Add Middleware Here
             app.Use(typeof (AuthorizationInitializer));
+            
+            //Add Global Exception Handling
+            configuration.Services.Add(typeof(IExceptionLogger), new NLogExceptionLogger());
+            configuration.Services.Replace(typeof(IExceptionHandler), new GlobalExceptionHandler());
 
             app.UseWebApi(configuration);
         }

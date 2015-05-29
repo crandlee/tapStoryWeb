@@ -1,13 +1,14 @@
 ﻿using System.Security.Principal;
 using tapStoryWebApi.Relationships.Security;
+using tapStoryWebData.EF.Contexts;
 
 namespace tapStoryWebApi.Common.Factories
 {
     public static class SecurityFactory
     {
-        public static UserRelationshipSecurity GetUserRelationshipSecurity(IPrincipal principal)
+        public static UserRelationshipSecurity GetUserRelationshipSecurity(ApplicationDbContext ctx, IPrincipal principal)
         {
-            return new UserRelationshipSecurity(principal);
+            return new UserRelationshipSecurity(ctx, principal);
         }
 
     }

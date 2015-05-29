@@ -1,4 +1,5 @@
-﻿using tapStoryWebData.EF.Models;
+﻿using tapStoryWebApi.Accounts.ViewModels;
+using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Relationships.ViewModels
 {
@@ -8,7 +9,7 @@ namespace tapStoryWebApi.Relationships.ViewModels
         public int SourceFriendId { get; set; }
         public int TargetFriendId { get; set; }
         public RelationshipStatus RelationshipStatus { get; set; }
-        public ApplicationUser SourceFriend { get; set; }
-        public ApplicationUser TargetFriend { get; set; }
+        public ApplicationUserViewModel SourceFriend { get; set; }
+        public ApplicationUserViewModel TargetFriend { get; set; }
     }
 }
