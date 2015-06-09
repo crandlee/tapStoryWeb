@@ -13,10 +13,10 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using tapStoryWebApi.Accounts.Configuration;
+using tapStoryWebApi.Accounts.DTO;
 using tapStoryWebApi.Accounts.Providers;
 using tapStoryWebApi.Accounts.Results;
 using tapStoryWebApi.Accounts.Services;
-using tapStoryWebApi.Accounts.ViewModels;
 using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Accounts.Controllers
@@ -56,11 +56,11 @@ namespace tapStoryWebApi.Accounts.Controllers
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
+        public UserInfoModel GetUserInfo()
         {
             var externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
 
-            return new UserInfoViewModel
+            return new UserInfoModel
             {
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
@@ -87,7 +87,7 @@ namespace tapStoryWebApi.Accounts.Controllers
                 return null;
             }
 
-            var logins = user.Logins.Select(linkedAccount => new UserLoginInfoViewModel
+            var logins = user.Logins.Select(linkedAccount => new UserLoginInfoModel
             {
                 LoginProvider = linkedAccount.LoginProvider, 
                 ProviderKey = linkedAccount.ProviderKey
@@ -95,7 +95,7 @@ namespace tapStoryWebApi.Accounts.Controllers
 
             if (user.PasswordHash != null)
             {
-                logins.Add(new UserLoginInfoViewModel
+                logins.Add(new UserLoginInfoModel
                 {
                     LoginProvider = LocalLoginProvider,
                     ProviderKey = user.UserName,

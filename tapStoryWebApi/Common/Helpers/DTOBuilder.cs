@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using LinqKit;
-using tapStoryWebApi.Accounts.ViewModels;
-using tapStoryWebApi.Relationships.ViewModels;
+using tapStoryWebApi.Accounts.DTO;
+using tapStoryWebApi.Relationships.DTO;
 using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.Common.Helpers
 {
-    public static class ViewModelBuilder
+    public static class DtoBuilder
     {
-        public static Expression<Func<UserRelationship, ChildRelationshipViewModel>> GetChildRelationshipViewModel = ur => new ChildRelationshipViewModel()
+        public static Expression<Func<UserRelationship, ChildRelationshipModel>> GetChildRelationshipViewModel = ur => new ChildRelationshipModel()
         {
             Id = ur.Id,
             ParentId = ur.PrimaryMemberId,
@@ -21,7 +19,7 @@ namespace tapStoryWebApi.Common.Helpers
             Child = new[] { ur.SecondaryMember }.AsQueryable().Select(GetApplicationUserViewModel).FirstOrDefault()
         };
 
-        public static Expression<Func<UserRelationship, FriendRelationshipViewModel>> GetFriendRelationshipViewModel = ur => new FriendRelationshipViewModel()
+        public static Expression<Func<UserRelationship, FriendRelationshipModel>> GetFriendRelationshipViewModel = ur => new FriendRelationshipModel()
         {
             Id = ur.Id,
             SourceFriendId = ur.PrimaryMemberId,
@@ -31,7 +29,7 @@ namespace tapStoryWebApi.Common.Helpers
             TargetFriend = new [] { ur.SecondaryMember }.AsQueryable().Select(GetApplicationUserViewModel).FirstOrDefault()
         };
 
-        public static Expression<Func<UserRelationship, GuardianRelationshipViewModel>> GetGuardianRelationshipViewModel = ur => new GuardianRelationshipViewModel()
+        public static Expression<Func<UserRelationship, GuardianRelationshipModel>> GetGuardianRelationshipViewModel = ur => new GuardianRelationshipModel()
         {
             Id = ur.Id,
             ParentId = ur.PrimaryMemberId,

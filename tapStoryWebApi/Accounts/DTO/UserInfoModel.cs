@@ -1,6 +1,6 @@
-﻿namespace tapStoryWebApi.Accounts.ViewModels
+﻿namespace tapStoryWebApi.Accounts.DTO
 {
-    public class UserInfoViewModel
+    public class UserInfoModel
     {
         public string Email { get; set; }
 

@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using DataAnnotationsExtensions;
 
-namespace tapStoryWebApi.Accounts.ViewModels
+namespace tapStoryWebApi.Accounts.DTO
 {
-    public class RemoveRoleBindingModel
+    public class AddRoleBindingModel
     {
         [Required]
         [Integer]

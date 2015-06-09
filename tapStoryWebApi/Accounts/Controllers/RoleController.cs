@@ -6,8 +6,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using NLog;
 using tapStoryWebApi.Accounts.Configuration;
+using tapStoryWebApi.Accounts.DTO;
 using tapStoryWebApi.Accounts.Services;
-using tapStoryWebApi.Accounts.ViewModels;
 using tapStoryWebApi.Attributes;
 
 namespace tapStoryWebApi.Accounts.Controllers

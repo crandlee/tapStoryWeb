@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace tapStoryWebApi.Accounts.ViewModels
+namespace tapStoryWebApi.Accounts.DTO
 {
     public class ManageInfoViewModel
     {
@@ -8,7 +8,7 @@ namespace tapStoryWebApi.Accounts.ViewModels
 
         public string Email { get; set; }
 
-        public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
+        public IEnumerable<UserLoginInfoModel> Logins { get; set; }
 
         public IEnumerable<ExternalLoginViewModel> ExternalLoginProviders { get; set; }
     }

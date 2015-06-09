@@ -1,17 +1,20 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
 using System.Web.Http.Controllers;
-using System.Web.OData;
-using System.Web.OData.Query;
 using tapStoryWebApi.Common.Factories;
 using tapStoryWebApi.Relationships.Security;
 using tapStoryWebApi.Relationships.Services;
 using tapStoryWebData.EF.Contexts;
 
-namespace tapStoryWebApi.Relationships.ODataControllers
+namespace tapStoryWebApi.Relationships.APIControllers
 {
-    public class OdGuardianshipsController: ODataController
+    public class GuardianshipsController : ApiController
     {
-
         private ApplicationDbContext _ctx;
         private UserRelationshipService _userRelService;
         private UserRelationshipSecurity _userRelSecurity;
@@ -25,17 +28,16 @@ namespace tapStoryWebApi.Relationships.ODataControllers
             base.Initialize(controllerContext);
         }
 
-        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
-        public IHttpActionResult Get()
+        //GET
+        //Retrieve Guardians for a child for the user Id in the URI
+        //URI PARAMS: {sourceUserId} 
+        [AcceptVerbs("GET")]
+        [Route("api/Guardianships/{sourceUserId}")]
+        public async Task<IHttpActionResult> Get([FromUri] int sourceUserId)
         {
-            return Ok(_userRelSecurity.SecureGuardianshipQuery(_userRelService.GetChildRelationships()));
+            var guardianRelationships = _userRelSecurity.SecureGuardianQuery(_userRelService.GetGuardianRelationships(sourceUserId));
+            return Ok(await guardianRelationships.ToListAsync());
         }
 
-
-        protected override void Dispose(bool disposing)
-        {
-            _ctx.Dispose();
-            base.Dispose(disposing);
-        }
     }
 }

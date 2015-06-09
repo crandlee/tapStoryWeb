@@ -1,6 +1,6 @@
-﻿namespace tapStoryWebApi.Accounts.ViewModels
+﻿namespace tapStoryWebApi.Accounts.DTO
 {
-    public class UserLoginInfoViewModel
+    public class UserLoginInfoModel
     {
         public string LoginProvider { get; set; }
 

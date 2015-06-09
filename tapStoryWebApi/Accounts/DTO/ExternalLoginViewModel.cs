@@ -1,4 +1,4 @@
-﻿namespace tapStoryWebApi.Accounts.ViewModels
+﻿namespace tapStoryWebApi.Accounts.DTO
 {
     public class ExternalLoginViewModel
     {

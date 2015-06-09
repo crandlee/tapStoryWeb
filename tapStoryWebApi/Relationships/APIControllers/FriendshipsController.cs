@@ -7,9 +7,9 @@ using System.Web.Http.Controllers;
 using tapStoryWebApi.Common.ActionResults;
 using tapStoryWebApi.Common.Factories;
 using tapStoryWebApi.Common.Helpers;
+using tapStoryWebApi.Relationships.DTO;
 using tapStoryWebApi.Relationships.Security;
 using tapStoryWebApi.Relationships.Services;
-using tapStoryWebApi.Relationships.ViewModels;
 using tapStoryWebData.EF.Contexts;
 using tapStoryWebData.EF.Models;
 
@@ -56,12 +56,12 @@ namespace tapStoryWebApi.Relationships.APIControllers
         [Route("api/Friendships")]
         public async Task<IHttpActionResult> CreateFriendRequest([FromBody] SourceTargetUser stu)
         {
-            if (!_userRelSecurity.CanCreatePendingFriendship()) return Unauthorized();
+            if (!_userRelSecurity.CanCreatePendingFriendship(stu.SourceUserId)) return Unauthorized();
             var newPendingFriendship = await _userRelService.CreatePendingFriendship(stu.SourceUserId, stu.TargetUserId);
 
             if (newPendingFriendship == null) return Ok();
             await _ctx.SaveChangesAsync();
-            return new CreatedActionResult<FriendRelationshipViewModel>(Request, newPendingFriendship);    
+            return new CreatedActionResult<FriendRelationshipModel>(Request, newPendingFriendship);    
         }
 
         public class SourceTargetUser
@@ -73,6 +73,17 @@ namespace tapStoryWebApi.Relationships.APIControllers
         //PUT
         //Acknowledge pending ack relationship
         //BODY PARAMS: {sourceUserId, targetUserId}
+        [AcceptVerbs("PUT")]
+        [Route("api/Friendships")]
+        public async Task<IHttpActionResult> AcknowledgeFriendRequest([FromBody] SourceTargetUser stu)
+        {
+            if (!_userRelSecurity.CanAcceptPendingFriendship(stu.SourceUserId)) return Unauthorized();
+            var newActiveFriendship = await _userRelService.CreatePendingFriendship(stu.SourceUserId, stu.TargetUserId);
+
+            if (newActiveFriendship == null) return NotFound();
+            await _ctx.SaveChangesAsync();
+            return new CreatedActionResult<FriendRelationshipModel>(Request, newActiveFriendship);
+        }
 
         //PATCH
         //NONE
@@ -80,9 +91,19 @@ namespace tapStoryWebApi.Relationships.APIControllers
         //DELETE
         //Set to INACTIVE any existing friendship of any current status
         //BODY PARAMS: {sourceUserId, targetUserId}
+        [AcceptVerbs("DELETE")]
+        [Route("api/Friendships")]
+        public async Task<IHttpActionResult> Unfriend([FromBody] SourceTargetUser stu)
+        {
+            if (!_userRelSecurity.CanUnfriend(stu.SourceUserId)) return Unauthorized();
+            await _userRelService.Unfriend(stu.SourceUserId, stu.TargetUserId);
+
+            await _ctx.SaveChangesAsync();
+            return Ok();
+        }
 
 
-        private static IQueryable<FriendRelationshipViewModel> FilterOnRelationshipStatus(IQueryable<FriendRelationshipViewModel> friendRelationships, string statusQueryString)
+        private static IQueryable<FriendRelationshipModel> FilterOnRelationshipStatus(IQueryable<FriendRelationshipModel> friendRelationships, string statusQueryString)
         {           
             switch (statusQueryString)
             {

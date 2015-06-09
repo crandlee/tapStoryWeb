@@ -1,8 +1,8 @@
 ﻿using tapStoryWebData.EF.Models;
 
-namespace tapStoryWebApi.Files.ViewModels
+namespace tapStoryWebApi.Files.DTO
 {
-    public class FileVm
+    public class FileModel
     {
         public int Id { get; set; }
         public string FileName { get; set; }

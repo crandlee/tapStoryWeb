@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.OData;
 using System.Web.OData.Query;
-using tapStoryWebApi.Common.ActionResults;
 using tapStoryWebApi.Common.Factories;
 using tapStoryWebApi.Relationships.Security;
 using tapStoryWebApi.Relationships.Services;
@@ -11,7 +13,7 @@ using tapStoryWebData.EF.Contexts;
 
 namespace tapStoryWebApi.Relationships.ODataControllers
 {
-    public class OdChildRelationshipsController : ODataController
+    public class OdGuardiansController: ODataController
     {
 
         private ApplicationDbContext _ctx;
@@ -30,7 +32,7 @@ namespace tapStoryWebApi.Relationships.ODataControllers
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All)]
         public IHttpActionResult Get()
         {
-                return Ok(_userRelSecurity.SecureChildrenQuery(_userRelService.GetChildRelationships()));
+            return Ok(_userRelSecurity.SecureGuardianQuery(_userRelService.GetGuardianRelationships()));
         }
 
 
@@ -39,13 +41,5 @@ namespace tapStoryWebApi.Relationships.ODataControllers
             _ctx.Dispose();
             base.Dispose(disposing);
         }
-
-        //[HttpGet]
-        //[ODataRoute("RetrieveUserRelationships(PrimaryMemberId={primaryMemberId}, SecondaryMemberId={secondaryMemberId})")]
-        //public IHttpActionResult RetrieveUserRelationships([FromODataUri] int primaryMemberId, [FromODataUri] int secondaryMemberId)
-        //{
-        //    return Ok(UserRelationshipService.GetUserRelationshipById(GetDbContext(), primaryMemberId, secondaryMemberId).ToArray());
-        //}
-
     }
 }

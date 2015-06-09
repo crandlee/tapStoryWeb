@@ -1,8 +1,8 @@
 ﻿using System.Web.OData.Builder;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.OData.Edm;
-using tapStoryWebApi.Files.ViewModels;
-using tapStoryWebApi.Relationships.ViewModels;
+using tapStoryWebApi.Files.DTO;
+using tapStoryWebApi.Relationships.DTO;
 using tapStoryWebData.EF.Models;
 
 namespace tapStoryWebApi.ODataConfiguration
@@ -22,10 +22,10 @@ namespace tapStoryWebApi.ODataConfiguration
 
         private static ODataModelBuilder AddFileConfiguration(ODataModelBuilder builder)
         {
-            builder.EntitySet<FileGroupVm>("OdFileGroups");
-            builder.EntitySet<UserStoryVm>("OdUserStories");
-            builder.EntitySet<BookFileGroupVm>("OdBooks");
-            builder.EntitySet<FileVm>("OdFiles");
+            builder.EntitySet<FileGroupModel>("OdFileGroups");
+            builder.EntitySet<UserStoryModel>("OdUserStories");
+            builder.EntitySet<BookModel>("OdBooks");
+            builder.EntitySet<FileModel>("OdFiles");
             return builder;
         }
 
@@ -56,9 +56,9 @@ namespace tapStoryWebApi.ODataConfiguration
             //urGetFunc.Parameter<int>("PrimaryMemberId");
             //urGetFunc.Parameter<int>("SecondaryMemberId");
             //urGetFunc.ReturnsCollectionFromEntitySet<UserRelationship>("UserRelationships");
-            builder.EntitySet<ChildRelationshipViewModel>("OdChildRelationships");
-            builder.EntitySet<GuardianRelationshipViewModel>("OdGuardianships");
-            builder.EntitySet<FriendRelationshipViewModel>("OdFriendships");
+            builder.EntitySet<ChildRelationshipModel>("OdChildRelationships");
+            builder.EntitySet<GuardianRelationshipModel>("OdGuardianships");
+            builder.EntitySet<FriendRelationshipModel>("OdFriendships");
             return builder;
         }
 

@@ -1,9 +1,9 @@
-﻿using tapStoryWebApi.Accounts.ViewModels;
+﻿using tapStoryWebApi.Accounts.DTO;
 using tapStoryWebData.EF.Models;
 
-namespace tapStoryWebApi.Relationships.ViewModels
+namespace tapStoryWebApi.Relationships.DTO
 {
-    public class ChildRelationshipViewModel
+    public class GuardianRelationshipModel
     {
         public int Id { get; set; }
         public int ParentId { get; set; }

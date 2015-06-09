@@ -7,7 +7,7 @@ using tapStoryWebApi.Attributes;
 using tapStoryWebApi.Common.Exceptions;
 using tapStoryWebApi.Common.Extensions;
 using tapStoryWebApi.Common.Services;
-using tapStoryWebApi.Files.ViewModels;
+using tapStoryWebApi.Files.DTO;
 using tapStoryWebData.EF.Contexts;
 using tapStoryWebData.EF.Models;
 
@@ -19,7 +19,7 @@ namespace tapStoryWebApi.Files.Services
         private readonly AuditService _auditService;
         private readonly ApplicationDbContext _ctx;
 
-        private readonly Expression<Func<File, FileVm>> _getFileVmFromFile = file => new FileVm()
+        private readonly Expression<Func<File, FileModel>> _getFileVmFromFile = file => new FileModel()
         {
             Id = file.Id,
             FileType = file.FileType,
@@ -47,14 +47,14 @@ namespace tapStoryWebApi.Files.Services
         } 
 
         //Get User File Groups
-        public IQueryable<UserStoryVm> GetUserFileGroups(int? fileGroupId = null)
+        public IQueryable<UserStoryModel> GetUserFileGroups(int? fileGroupId = null)
         {
 
             return from ufg in _ctx.UserFileGroups
                 join fg in _ctx.FileGroups on ufg.FileGroupId equals fg.Id
                 where fg.FileGroupType == FileGroupType.UserStory && (fg.Id == fileGroupId || fileGroupId == null)
                 select
-                    new UserStoryVm()
+                    new UserStoryModel()
                     {
                         StoryName = fg.GroupName,
                         Id = fg.Id,
@@ -64,11 +64,11 @@ namespace tapStoryWebApi.Files.Services
         }
 
         //Get Book File Groups
-        public IQueryable<BookFileGroupVm> GetBookFileGroups()
+        public IQueryable<BookModel> GetBookFileGroups()
         {
             return from fg in _ctx.FileGroups
                    where fg.FileGroupType == FileGroupType.Book
-                   select new BookFileGroupVm()
+                   select new BookModel()
                    {
                        BookName = fg.GroupName,
                        Id = fg.Id,
@@ -77,13 +77,13 @@ namespace tapStoryWebApi.Files.Services
         }
 
         //Get Files for File Group Id
-        public IQueryable<FileVm> GetFileGroupFiles(int fileGroupId)
+        public IQueryable<FileModel> GetFileGroupFiles(int fileGroupId)
         {
             return _ctx.Files.Where(f => f.FileGroupId == fileGroupId).Select(_getFileVmFromFile);
         }
 
 
-        public IQueryable<FileVm> GetFiles(int? fileId = null)
+        public IQueryable<FileModel> GetFiles(int? fileId = null)
         {
             return _ctx.Files.Where(f => f.Id == fileId || fileId == null).Select(_getFileVmFromFile);
         }

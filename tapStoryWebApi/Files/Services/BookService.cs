@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.OData.Query;
+﻿using System.Linq;
 using AutoMapper;
 using tapStoryWebApi.Common.Services;
-using tapStoryWebApi.Files.ViewModels;
+using tapStoryWebApi.Files.DTO;
 using tapStoryWebData.EF.Contexts;
 using tapStoryWebData.EF.Models;
 
@@ -23,7 +19,7 @@ namespace tapStoryWebApi.Files.Services
             _ctx = ctx;
         }
 
-        public IQueryable<BookFileGroupVm> GetBookFileGroups()
+        public IQueryable<BookModel> GetBookFileGroups()
         {
             var bfgs =  _ctx.FileGroups.Include("Files").Where(e => e.FileGroupType == FileGroupType.Book).
                 ToArray().Select(CreateBookFileGroup).AsQueryable();
@@ -32,11 +28,11 @@ namespace tapStoryWebApi.Files.Services
 
 
         //Create BookFileGroup ViewModel
-        private static BookFileGroupVm CreateBookFileGroup(FileGroup fg)
+        private static BookModel CreateBookFileGroup(FileGroup fg)
         {
-            Mapper.CreateMap<FileGroup, BookFileGroupVm>()
+            Mapper.CreateMap<FileGroup, BookModel>()
                 .ForMember(dest => dest.BookName, opt => opt.MapFrom(src => src.GroupName));
-            var bfg = Mapper.Map<BookFileGroupVm>(fg);
+            var bfg = Mapper.Map<BookModel>(fg);
             return bfg;
         }
     }

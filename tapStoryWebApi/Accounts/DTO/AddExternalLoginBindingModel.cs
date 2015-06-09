@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace tapStoryWebApi.Accounts.ViewModels
+namespace tapStoryWebApi.Accounts.DTO
 {
     public class AddExternalLoginBindingModel
     {

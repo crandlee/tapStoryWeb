@@ -59,7 +59,6 @@ namespace tapStoryWebApi.Files.APIControllers
         {
             if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
             return await _fileGroupContentCommon.SaveFileGroup(FileGroupContentCommon.FileGroupCreateMode.Edit);
-
         }
 
         //DELETE FILE GROUP
